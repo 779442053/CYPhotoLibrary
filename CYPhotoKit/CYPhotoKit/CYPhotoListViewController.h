@@ -12,7 +12,9 @@
 @interface CYPhotoListViewController : UIViewController
 
 /** PHFetchResult  */
-@property (nonatomic,strong,nullable) PHFetchResult <PHAsset *>*fetchResult;
+@property (nonatomic,strong,nullable) PHFetchResult <PHAsset *> *fetchResult;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 
 @end
