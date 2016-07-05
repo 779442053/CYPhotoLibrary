@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -282,6 +282,7 @@
 		66B101151C9EC56D00AE814B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = CY;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "大兵布莱恩特";
 				TargetAttributes = {
@@ -299,7 +300,7 @@
 				};
 			};
 			buildConfigurationList = 66B101181C9EC56D00AE814B /* Build configuration list for PBXProject "CYPhotoKit" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
