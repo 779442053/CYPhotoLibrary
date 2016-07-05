@@ -22,22 +22,15 @@
     CYPhotoGroupController *cyPhotoGroupViewController = [[CYPhotoGroupController alloc] init];
     
     CYPhotoNavigationController *navigationController = [[CYPhotoNavigationController alloc] initWithRootViewController:cyPhotoGroupViewController];
-    
  
     return navigationController;
 }
 
-- (void)back {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
 - (instancetype)init{
     if (self = [super init]) {
+
         [self isEmpty];
         
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target: self action:@selector(back)];
-
     }
     return self;
 }
@@ -49,6 +42,7 @@
     return self;
 }
 - (void)isEmpty {
+    
     UIViewController *rootViewController = [self.viewControllers firstObject];
     BOOL result = (!rootViewController||![rootViewController isKindOfClass:[CYPhotoGroupController class]]);
     NSAssert(!result, @"\n\n请指定 CYPhotoGroupController类型的 rootViewController 或者调用 shareInstance 方法\n");
@@ -66,6 +60,12 @@
         _cyPhotoGroupViewController = [[CYPhotoGroupController alloc] init];
     }
     return _cyPhotoGroupViewController;
+}
+
+- (void)dealloc {
+
+    NSLog(@"-- %s ---\n",__func__);
+
 }
 
 @end

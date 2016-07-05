@@ -19,10 +19,10 @@
     
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)dealloc {
+    
+    NSLog(@"-- %s ---\n",__func__);
 
-    // Configure the view for the selected state
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CYPhotoLibrayGroupCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 

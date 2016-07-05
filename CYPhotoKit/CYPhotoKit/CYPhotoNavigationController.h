@@ -14,6 +14,7 @@
  *  类方法获取一个 photosNavigationController
  */
 + (_Nullable instancetype)showPhotosViewController;
+
 /**
  *  禁用 init new等方法生成实例
  */

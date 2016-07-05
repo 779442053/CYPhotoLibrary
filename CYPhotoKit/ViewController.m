@@ -11,8 +11,7 @@
 #import "CYImagePickDefine.h"
 #import "CYCollectionViewCell.h"
 #import "CYImagePickerHandle.h"
-#import "CYPhotoNavigationController.h"
-#import "CYPhotoGroupController.h"
+#import "CYPhotosKit.h"
 
 @interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,strong) NSMutableArray *dataSource;
