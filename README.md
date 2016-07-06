@@ -8,3 +8,19 @@
 
 http://www.jianshu.com/p/dc2c07449d90
 
+
+CYPhotosAsset : 代表单个照片或者视频资源
+
+@property (nonatomic,strong,nullable) PHAsset *asset;
+
+/** thumbnail  */
+@property (nonatomic,strong,nullable) UIImage *thumbnail;
+
+/** originalImg  */
+@property (nonatomic,strong,nullable) UIImage *originalImg;
+
+/** imageUrl  */
+@property (nonatomic,copy,nullable  ) NSURL   *imageUrl;
+
+/** imageData  */
+@property (nonatomic,strong,nullable) NSData *imageData;

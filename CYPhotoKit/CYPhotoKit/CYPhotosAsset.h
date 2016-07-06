@@ -13,19 +13,19 @@
  */
 @interface CYPhotosAsset : NSObject
 
-/** asset  */
+/** 代表一个图片或者视频 */
 @property (nonatomic,strong,nullable) PHAsset *asset;
 
-/** thumbnail  */
+/** 缩略图  */
 @property (nonatomic,strong,nullable) UIImage *thumbnail;
 
-/** originalImg  */
+/**  原图  */
 @property (nonatomic,strong,nullable) UIImage *originalImg;
 
-/** imageUrl  */
+/** 视频/图片的本地 url  */
 @property (nonatomic,copy,nullable  ) NSURL   *imageUrl;
 
-/** imageData  */
+/** 选取后的图片/视频的二进制文件  */
 @property (nonatomic,strong,nullable) NSData *imageData;
 
 @end

@@ -31,7 +31,7 @@ block();\
 }
 
 
-#ifdef DEBUG
+#ifdef DEBUG0
 // DEBUG模式下进行调试打印
 
 // 输出结果标记出所在类方法与行数

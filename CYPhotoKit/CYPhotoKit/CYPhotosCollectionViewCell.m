@@ -50,16 +50,38 @@
    
     __weak typeof(self)weakSelf = self;
     
+    /**
+     synchronous：指定请求是否同步执行。
+     resizeMode：对请求的图像怎样缩放。有三种选择：None，不缩放；Fast，尽快地提供接近或稍微大于要求的尺寸；Exact，精准提供要求的尺寸。
+     deliveryMode：图像质量。有三种值：Opportunistic，在速度与质量中均衡；HighQualityFormat，不管花费多长时间，提供高质量图像；FastFormat，以最快速度提供好的质量。
+     这个属性只有在 synchronous 为 true 时有效。
+     
+     */
+    
+    
+    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+    option.synchronous  = NO;
+    option.resizeMode   = PHImageRequestOptionsResizeModeFast;
+    option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    
     [self.imageManager requestImageForAsset:_photosAsset
-                                 targetSize:CGSizeMake(200.0f, 200.0f)
-                                contentMode:PHImageContentModeDefault
-                                    options:nil
+                                 targetSize:CGSizeMake(250.0f, 250.0f)
+                                contentMode:PHImageContentModeAspectFill
+                                    options:option
                               resultHandler:^(UIImage *result, NSDictionary *info) {
                                   __strong typeof(weakSelf)strongSelf = weakSelf;
-                                  strongSelf.imageView.image = result;
+                                  if (![NSThread mainThread]) {
+                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                          strongSelf.imageView.image = result;
+                                      }];
+                                  } else {
+                                      strongSelf.imageView.image = result;
+                                      
+                                  }
                               }];
     
     
+
 }
 
 - (void)setSelectItem:(BOOL)selectItem {
@@ -79,7 +101,7 @@
 
 - (void)dealloc {
     
-    CYLog(@"--dealloc--\n");
+//    CYLog(@"--dealloc--\n");
     
 }
 @end

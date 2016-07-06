@@ -13,16 +13,21 @@
  */
 @interface CYPhotosCollection : NSObject
 
-/** fetchResult  */
+/**
+ *  集合里边放的是 PHAsset 对象
+ */
 @property (nonatomic,strong,nullable) PHFetchResult *fetchResult;
-
-/** localTitle  */
+/**
+ *  相册名称
+ */
 @property (nonatomic,copy,nullable  ) NSString      *localizedTitle;
-
-/** count */
+/**
+ *  相册里照片/视频的熟练
+ */
 @property (nonatomic,nullable,copy  ) NSString      *count;
-
-/** thumbnail  */
+/**
+ *  相册封面取最新的一张照片作为封面
+ */
 @property (nonatomic,strong,nullable) UIImage       *thumbnail;
 
 @end

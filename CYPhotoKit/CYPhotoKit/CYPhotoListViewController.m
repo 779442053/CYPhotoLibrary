@@ -51,6 +51,9 @@ static CGFloat const itemMarigin = 5.0f;
     self.countLabel.layer.masksToBounds      = YES;
     self.needScrollToBottom                  = YES;
     
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    
 }
 #pragma mark - 按钮点击事件
 
@@ -103,10 +106,13 @@ static CGFloat const itemMarigin = 5.0f;
     return _bottomView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
+    
+ 
+    [self.collectionView reloadData];
+
 }
 
 - (void)setFetchResult:(PHFetchResult<PHAsset *> *)fetchResult {
@@ -124,14 +130,10 @@ static CGFloat const itemMarigin = 5.0f;
 
     dispatch_global_safe(block);
 
+    
+    
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    
-  
-    
-}
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
@@ -259,7 +261,7 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (void)dealloc {
     
-    CYLog(@"--dealloc--\n");
+//    CYLog(@"--dealloc--\n");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }

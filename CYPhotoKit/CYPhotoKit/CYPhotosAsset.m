@@ -32,9 +32,7 @@
         __strong typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.imageData = imageData;
         strongSelf.imageUrl = info[@"PHImageFileURLKey"];
-
     }];
-    
 
 }
 
@@ -47,7 +45,7 @@
 
 - (void)dealloc {
     
-    CYLog(@"--dealloc--\n");
+//    CYLog(@"--dealloc--\n");
     
 }
 @end
