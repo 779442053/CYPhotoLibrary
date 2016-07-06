@@ -21,10 +21,12 @@
  *  所有照片的集合
  */
 - (NSMutableArray <CYPhotosAsset *>*_Nullable)requestAllPhotosOptions;
+
 /**
  *  系统创建的一些相册
  */
 - (NSMutableArray <CYPhotosAsset *>*_Nullable)requestSmartAlbums;
+
 /**
  *  用户自己创建的相册
  */

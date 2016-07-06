@@ -13,7 +13,7 @@
 #import "CYImagePickerHandle.h"
 #import "CYPhotosKit.h"
 
-@interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout , CYPhotoNavigationControllerDelegate>
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @end
 
@@ -49,10 +49,19 @@
 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
+  __weak  CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
     CYPhoto *photo = self.dataSource[indexPath.item];
 
-    cell.imageView.image = photo.image;
+    if (photo.type == CYPhotoAssetTypeAdd) {
+         cell.imageView.image = photo.image;
+    } else {
+        
+        PHImageManager *imageManager = [PHImageManager defaultManager];
+        [imageManager requestImageForAsset:photo.asset targetSize:CGSizeMake(250.0f, 250.0f) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            cell.imageView.image = result;
+        }];
+        
+    }
     
     return cell;
     
@@ -64,25 +73,13 @@
     if (photo.type == CYPhotoAssetTypePhoto) return;
     CYPhotoNavigationController *cyNavigationController = [CYPhotoNavigationController showPhotosViewController];
     [self presentViewController:cyNavigationController animated:YES completion:nil];
-//    __weak typeof(self)weakSelf = self;
-//    
-//    [CYImagePickerHandle showCYImagePicerViewControllerInViewController:self callBack:^(UIImage *image, NSDictionary *infoDict) {
-//        __strong typeof(weakSelf)strongSelf = weakSelf;
-//        
-//        if (!image) return ;
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [strongSelf.collectionView performBatchUpdates:^{
-//                CYPhoto *photo = [CYPhoto new];
-//                photo.image    = image;
-//                photo.type     = CYPhotoAssetTypePhoto;
-//                [strongSelf.dataSource insertObjects:@[photo] atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)]];
-//                [strongSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-//                
-//            } completion:^(BOOL finished) {
-//                
-//            }];
-//        });
-//    }];
+    cyNavigationController.cyPhotosDelegate = self;
+
+    cyNavigationController.completionBlock = ^(NSArray *array) {
+      
+        NSLog(@"----%@",array);
+        
+    };
     
 }
 
@@ -106,4 +103,28 @@
     return 10;
 }
 
+#pragma mark - CYPhotoNavigationControllerDelegate
+
+/**
+ *  照片选择器完成选择照片
+ */
+- (void)cyPhotoNavigationController:(CYPhotoNavigationController *_Nullable)controller didFinishedSelectPhotos:(NSArray *_Nullable)result {
+    
+    [self.dataSource removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self.dataSource.count-1)]];
+    __weak typeof(self)weakSelf = self;
+    
+    [result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        CYPhoto *photo = [CYPhoto new];
+        photo.type     = CYPhotoAssetTypePhoto;
+        photo.image    = nil;
+        photo.asset    = obj;
+        [strongSelf.dataSource addObject:photo];
+        
+    }];
+    
+    [self.collectionView reloadData];
+    
+}
 @end

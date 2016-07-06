@@ -21,7 +21,7 @@
 
 - (void)dealloc {
     
-    NSLog(@"-- %s ---\n",__func__);
+//    NSLog(@"-- %s ---\n",__func__);
 
 }
 

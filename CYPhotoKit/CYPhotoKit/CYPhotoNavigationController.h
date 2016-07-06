@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^PhotosCompletion)(NSArray *_Nullable result);
+
+@protocol CYPhotoNavigationControllerDelegate;
+
 @interface CYPhotoNavigationController : UINavigationController
 
 /**
@@ -21,5 +25,22 @@
 - (_Nullable instancetype)init UNAVAILABLE_ATTRIBUTE;
 
 + (_Nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
+
+/** completionBlock  */
+@property (nonatomic,copy,nullable) PhotosCompletion completionBlock;
+
+/** cyPhotosDelegate */
+@property (nonatomic,weak,nullable) id <CYPhotoNavigationControllerDelegate> cyPhotosDelegate;
+
+@end
+
+@protocol CYPhotoNavigationControllerDelegate <NSObject,UINavigationControllerDelegate>
+
+@optional
+
+/**
+ *  照片选择器完成选择照片
+ */
+- (void)cyPhotoNavigationController:(CYPhotoNavigationController *_Nullable)controller didFinishedSelectPhotos:(NSArray *_Nullable)result;
 
 @end

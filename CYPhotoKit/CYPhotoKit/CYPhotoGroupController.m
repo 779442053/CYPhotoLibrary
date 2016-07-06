@@ -29,21 +29,46 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
 - (void)viewDidLoad{
     [super viewDidLoad];
 
-    self.title                             = @"照片";
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
-
-    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-
-    CYPhotosManager *photosManager         = [CYPhotosManager defaultManager];
-
-    self.sectionFetchResults = @[[photosManager requestAllPhotosOptions], [photosManager requestSmartAlbums], [photosManager requestTopLevelUserCollections]];
-  
-    [self.view addSubview:self.tableView];
+    [self setup];
     
 }
 
+- (void)setup {
+    
+    self.title                             = @"照片";
+    
+    [self.view addSubview:self.tableView];
+    
+    CYPhotosManager *photosManager         = [CYPhotosManager defaultManager];
+    self.sectionFetchResults = @[[photosManager requestAllPhotosOptions], [photosManager requestSmartAlbums], [photosManager requestTopLevelUserCollections]];
+    
+    [self addObserVer]; // 添加监听
+    
+    // 如果所有照片有照片 就进所有照片的详情页面
+    if ([[photosManager requestAllPhotosOptions] count]>0) {
+        CYPhotosAsset *photoAsset = [[photosManager requestAllPhotosOptions] firstObject];
+        [self openPhotosListViewController:photoAsset animated:NO];
+    }
+    
+    self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
 
+}
+/**
+ *  添加监听方法
+ */
+- (void)addObserVer {
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+
+}
+
+#pragma mark - 按钮点击事件
+
+- (void)dismiss {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllDismiss" object:nil];
+    
+}
 
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -53,12 +78,6 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
         [_tableView registerNib:[UINib nibWithNibName:@"CYPhotoLibrayGroupCell" bundle:nil] forCellReuseIdentifier:photoLibrayGroupCell];
     }
     return _tableView;
-}
-
-- (void)dismiss {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 
@@ -77,8 +96,10 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) return 1;
-    
+    if (section == 0) {
+        
+        return 1;
+    }
     else {
         
         PHFetchResult *result = self.sectionFetchResults[section];
@@ -101,9 +122,11 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     cell.photoImageView.image = photoAsset.thumbnail;
     cell.titleLabel.text      = [NSString stringWithFormat:@"%@ (%@)",photoAsset.localizedTitle,photoAsset.count];
 
+
     return cell;
 
 }
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -111,19 +134,27 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     NSArray *fetchResult = self.sectionFetchResults[indexPath.section];
     CYPhotosAsset *photoAsset = fetchResult[indexPath.row];
  
-    
-    CYPhotoListViewController *photoDetailVC = [[CYPhotoListViewController alloc] init];
-    photoDetailVC.fetchResult                = photoAsset.fetchResult;
-    photoDetailVC.title                      = photoAsset.localizedTitle;
-    [self.navigationController pushViewController:photoDetailVC animated:YES];
+    [self openPhotosListViewController:photoAsset animated:YES];
 
+}
+
+/**
+ *  打开单个相册所有照片详情的页面
+ */
+- (void)openPhotosListViewController:(CYPhotosAsset*)photosAsset animated:(BOOL)animated {
+ 
+    CYPhotoListViewController *photoDetailVC = [[CYPhotoListViewController alloc] init];
+    photoDetailVC.fetchResult                = photosAsset.fetchResult;
+    photoDetailVC.title                      = photosAsset.localizedTitle;
+    [self.navigationController pushViewController:photoDetailVC animated:animated];
+    
 }
 
 
 - (void)dealloc {
     
-    NSLog(@"-- %s ---\n",__func__);
-
+//    NSLog(@"-- %s ---\n",__func__);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
 }
 

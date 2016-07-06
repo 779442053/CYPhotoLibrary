@@ -17,6 +17,7 @@
 
 @implementation CYPhotoNavigationController
 
+
 + (_Nullable instancetype)showPhotosViewController
 {
     CYPhotoGroupController *cyPhotoGroupViewController = [[CYPhotoGroupController alloc] init];
@@ -25,22 +26,55 @@
  
     return navigationController;
 }
+#pragma mark - 监听通知
+- (void)dismiss {
+    
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
-- (instancetype)init{
-    if (self = [super init]) {
+- (void)didFinished:(NSNotification *)noti {
+    
+    NSArray *array = noti.object;
+    if ([self.cyPhotosDelegate respondsToSelector:@selector(cyPhotoNavigationController:didFinishedSelectPhotos:)]) {
+        [self.cyPhotosDelegate cyPhotoNavigationController:self didFinishedSelectPhotos:array];
+    }
+    if (self.completionBlock) {
+        self.completionBlock(array);
+    }
+    
+    [self dismiss];
+    
+}
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
         [self isEmpty];
-        
+        [self addObserver];
     }
     return self;
 }
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController{
     if (self = [super initWithRootViewController:rootViewController]) {
+        
         [self isEmpty];
+        [self addObserver];
+        
     }
     return self;
 }
+
+- (void)addObserver {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismiss) name:@"photosViewControllDismiss" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinished:) name:@"photosViewControllerDidFinished" object:nil];
+    
+}
+
 - (void)isEmpty {
     
     UIViewController *rootViewController = [self.viewControllers firstObject];
@@ -54,7 +88,6 @@
 
 }
 
-
 - (CYPhotoGroupController *)cyPhotoGroupViewController{
     if (!_cyPhotoGroupViewController) {
         _cyPhotoGroupViewController = [[CYPhotoGroupController alloc] init];
@@ -64,7 +97,8 @@
 
 - (void)dealloc {
 
-    NSLog(@"-- %s ---\n",__func__);
+//    NSLog(@"-- %s ---\n",__func__);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }
 

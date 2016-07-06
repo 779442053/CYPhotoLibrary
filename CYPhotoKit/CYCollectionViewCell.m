@@ -16,6 +16,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self.contentView addSubview:self.imageView];
+        self.imageView.contentMode   = UIViewContentModeScaleAspectFill;
+        self.imageView.clipsToBounds = YES;
+        
     }
     return self;
 }

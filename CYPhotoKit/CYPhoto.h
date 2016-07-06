@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 typedef NS_ENUM(NSInteger,CYPhotoAssetType) {
     CYPhotoAssetTypeAdd,
@@ -18,6 +19,9 @@ typedef NS_ENUM(NSInteger,CYPhotoAssetType) {
 
 @property (nonatomic,assign) CYPhotoAssetType type;
 
-@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong,nullable) UIImage *image;
+
+/** asset  */
+@property (nonatomic,strong,nullable) PHAsset *asset;
 
 @end
