@@ -259,7 +259,7 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (void)dealloc {
     
-//    NSLog(@"-- %s ---",__func__);
+    CYLog(@"--dealloc--\n");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }

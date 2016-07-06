@@ -12,7 +12,7 @@
 
 - (void)dealloc {
     
-//    NSLog(@" %s",__func__);
+    CYLog(@"--dealloc--\n");
     
     
 }

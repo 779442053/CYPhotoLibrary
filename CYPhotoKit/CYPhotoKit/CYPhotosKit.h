@@ -15,7 +15,6 @@
 #import "CYPhotoLibrayGroupCell.h"
 #import "CYPhotoListViewController.h"
 
-typedef void (^CYRun)(void);
 
 
 #define dispatch_main_safe(block)\
@@ -30,6 +29,19 @@ block();\
 } else {\
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);\
 }
+
+
+#ifdef DEBUG
+// DEBUG模式下进行调试打印
+
+// 输出结果标记出所在类方法与行数
+#define CYLog(fmt, ...)   NSLog((@"\n%s[Line: %d]™ ->" fmt), strrchr(__FUNCTION__,'['), __LINE__, ##__VA_ARGS__)
+
+#else
+
+#define CYLog(...)   {}
+
+#endif
 
 /**
  *  最大选取照片的数量

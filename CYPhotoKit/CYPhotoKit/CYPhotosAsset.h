@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
+/**
+ *  代表一个视频或者照片资源
+ */
 @interface CYPhotosAsset : NSObject
 
 /** asset  */

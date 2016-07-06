@@ -35,7 +35,7 @@
 
     }];
     
-    
+
 }
 
 - (UIImage *)originalImg {
@@ -47,6 +47,7 @@
 
 - (void)dealloc {
     
+    CYLog(@"--dealloc--\n");
     
 }
 @end

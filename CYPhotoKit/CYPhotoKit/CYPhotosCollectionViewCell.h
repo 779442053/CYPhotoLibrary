@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-
+/**
+ *  单个相片的 collectionView
+ */
 @interface CYPhotosCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;

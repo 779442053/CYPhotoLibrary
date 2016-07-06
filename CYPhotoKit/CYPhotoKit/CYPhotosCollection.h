@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
-
+/**
+ *  代表一个集合可能是一个相册组也可能是所有 PHAsset 的集合
+ */
 @interface CYPhotosCollection : NSObject
 
 /** fetchResult  */

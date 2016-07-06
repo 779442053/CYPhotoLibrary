@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+/**
+ *  所有相册分组的控制器
+ */
 @interface CYPhotoGroupController : UIViewController
 
 @end

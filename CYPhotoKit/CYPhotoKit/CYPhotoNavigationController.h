@@ -11,7 +11,9 @@
 typedef void(^PhotosCompletion)(NSArray *_Nullable result);
 
 @protocol CYPhotoNavigationControllerDelegate;
-
+/**
+ *  相册选择器的导航控制器
+ */
 @interface CYPhotoNavigationController : UINavigationController
 
 /**
@@ -20,10 +22,12 @@ typedef void(^PhotosCompletion)(NSArray *_Nullable result);
 + (_Nullable instancetype)showPhotosViewController;
 
 /**
- *  禁用 init new等方法生成实例
+ *  禁用 init 方法来生成该类的实例对象
  */
 - (_Nullable instancetype)init UNAVAILABLE_ATTRIBUTE;
-
+/**
+ *  禁用 new 方法来生成该类的实例对象
+ */
 + (_Nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
 
 /** completionBlock  */

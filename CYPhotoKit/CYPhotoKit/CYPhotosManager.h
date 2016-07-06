@@ -10,6 +10,9 @@
 #import <Photos/Photos.h>
 @class CYPhotosCollection;
 
+/**
+ *  照片资源获取的管理者
+ */
 @interface CYPhotosManager : NSObject
 
 /**
@@ -31,5 +34,6 @@
  *  用户自己创建的相册
  */
 - (NSMutableArray <CYPhotosCollection *>*_Nullable)requestTopLevelUserCollections;
+
 
 @end

@@ -21,6 +21,9 @@
     
     self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
 
+    self.title = @"照片";
+    
+    
 }
 
 - (void)back {
@@ -36,6 +39,8 @@
 
 - (void)dealloc {
     
+    CYLog(@"--dealloc--\n");
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }

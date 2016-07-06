@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+/**
+ *  获取相册授权失败的控制器
+ */
 @interface CYAuthorizedFailureViewController : UIViewController
 
 - (IBAction)settingButtonClick:(id)sender;

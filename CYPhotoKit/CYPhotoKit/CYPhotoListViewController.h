@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 @class CYPhotosAsset;
-
+/**
+ *  单个相册下的详情控制器
+ */
 @interface CYPhotoListViewController : UIViewController
 
 NS_ASSUME_NONNULL_BEGIN
