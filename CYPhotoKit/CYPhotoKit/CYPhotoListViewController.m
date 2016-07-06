@@ -9,8 +9,9 @@
 
 #import "CYPhotoListViewController.h"
 #import <Photos/Photos.h>
-#import "CYPhotosAsset.h"
+#import "CYPhotosCollection.h"
 #import "CYPhotosCollectionViewCell.h"
+#import "CYPhotosAsset.h"
 
 static CGFloat const itemMarigin = 5.0f;
 
@@ -18,8 +19,9 @@ static CGFloat const itemMarigin = 5.0f;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 @property (nonatomic,assign ) CGSize                itemSize;
 @property (nonatomic,strong ) NSMutableDictionary   *cacheSelectItems;
-@property (nonatomic,strong)  NSMutableDictionary   *selectAssetDictionary;
-@property (nonatomic,strong)  UIView *bottomView;
+@property (nonatomic,strong ) NSMutableDictionary   *selectAssetDictionary;
+@property (nonatomic,strong ) UIView                *bottomView;
+@property (nonatomic,assign ) BOOL                  needScrollToBottom;
 @end
 
 @implementation CYPhotoListViewController
@@ -47,7 +49,8 @@ static CGFloat const itemMarigin = 5.0f;
 
     self.countLabel.layer.cornerRadius       = 10.0f;
     self.countLabel.layer.masksToBounds      = YES;
-
+    self.needScrollToBottom                  = YES;
+    
 }
 #pragma mark - 按钮点击事件
 
@@ -64,12 +67,14 @@ static CGFloat const itemMarigin = 5.0f;
 
     __block   NSMutableArray *array = [NSMutableArray array];
 
-    [self.selectAssetDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, PHAsset *asset, BOOL * _Nonnull stop) {
-        [array addObject:asset];
+    [self.selectAssetDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, CYPhotosAsset *photosAsset, BOOL * _Nonnull stop) {
+        [array addObject:photosAsset];
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllerDidFinished" object:array];
-    
 }
+
+
+
 - (NSMutableDictionary *)cacheSelectItems {
     if (!_cacheSelectItems) {
         _cacheSelectItems = [NSMutableDictionary dictionary];
@@ -121,14 +126,20 @@ static CGFloat const itemMarigin = 5.0f;
 
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+  
+    
+}
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
+    if (!self.needScrollToBottom) return;
     // 照片超过一个屏幕就滚动到最底部
     if (self.collectionView.contentSize.height > self.collectionView.frame.size.height) {
         [self collectionViewScrollToBottom];
     }
-
 }
 /**
  *  滚动到最底部
@@ -138,7 +149,8 @@ static CGFloat const itemMarigin = 5.0f;
     CGPoint off = self.collectionView.contentOffset;
     off.y       = self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom;
     [self.collectionView setContentOffset:off animated:NO];
-    
+    self.needScrollToBottom = NO;
+
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -183,12 +195,15 @@ static CGFloat const itemMarigin = 5.0f;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
     PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
+    CYPhotosAsset *photosAsset = [CYPhotosAsset new];
+    photosAsset.asset          = asset;
+    
     NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
     BOOL isSelect                          = ![self.cacheSelectItems[key] boolValue];
     NSString *flag                         = nil;
     if (isSelect) {
         if (self.selectAssetDictionary.count<= maxSelectPhotoCount-1) {
-            self.selectAssetDictionary[key]        = asset;
+            self.selectAssetDictionary[key]        = photosAsset;
             [self reloadBottomViewStatus];
             flag = @"1";
         } else {

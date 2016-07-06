@@ -51,7 +51,7 @@
     __weak typeof(self)weakSelf = self;
     
     [self.imageManager requestImageForAsset:_photosAsset
-                                 targetSize:CGSizeMake(150.0f, 150.0f)
+                                 targetSize:CGSizeMake(200.0f, 200.0f)
                                 contentMode:PHImageContentModeDefault
                                     options:nil
                               resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -66,7 +66,7 @@
     _selectItem           = selectItem;
     
     self.coverView.hidden = !_selectItem;
-    
+  
 }
 
 - (void)layoutSubviews {

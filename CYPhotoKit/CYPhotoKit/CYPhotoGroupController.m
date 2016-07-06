@@ -11,7 +11,9 @@
 #import "CYPhotoLibrayGroupCell.h"
 #import "CYPhotosManager.h"
 #import "CYPhotoListViewController.h"
-#import "CYPhotosAsset.h"
+#import "CYPhotosCollection.h"
+#import "CYAuthorizedFailureViewController.h"
+
 
 static NSString *const photoLibrayGroupCell   = @"CYPhotoLibrayGroupCell";
 static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
@@ -35,7 +37,48 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
 
 - (void)setup {
     
-    self.title                             = @"照片";
+    self.title                              = @"照片";
+    __weak typeof(self)weakSelf             = self;
+    // 判断是否能够访问相册功能
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        if (status == PHAuthorizationStatusDenied) {
+            NSLog(@"用户拒绝当前应用访问相册,我们需要提醒用户打开访问开关");
+            [strongSelf performSelectorOnMainThread:@selector(showAuthorizedFailureViewController) withObject:nil waitUntilDone:NO];
+        }else if (status == PHAuthorizationStatusRestricted){
+            NSLog(@"家长控制,不允许访问");
+            [strongSelf performSelectorOnMainThread:@selector(showAuthorizedFailureViewController) withObject:nil waitUntilDone:NO];
+        }else if (status == PHAuthorizationStatusNotDetermined){
+            NSLog(@"用户还没有做出选择");
+        }else if (status == PHAuthorizationStatusAuthorized){
+            NSLog(@"用户允许当前应用访问相册");
+            [strongSelf performSelectorOnMainThread:@selector(photosAuthorizedSuccess) withObject:nil waitUntilDone:NO];
+        }
+        
+    }];
+    
+    
+    self.view.backgroundColor              = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+
+
+
+}
+
+- (void)showAuthorizedFailureViewController {
+
+    
+    NSLog(@"---%@",[NSThread currentThread]);
+    
+    
+    
+    CYAuthorizedFailureViewController *failureViewController = [[CYAuthorizedFailureViewController alloc] init];
+    
+    [self.navigationController pushViewController:failureViewController animated:NO];
+
+}
+
+- (void)photosAuthorizedSuccess {
     
     [self.view addSubview:self.tableView];
     
@@ -46,13 +89,12 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     
     // 如果所有照片有照片 就进所有照片的详情页面
     if ([[photosManager requestAllPhotosOptions] count]>0) {
-        CYPhotosAsset *photoAsset = [[photosManager requestAllPhotosOptions] firstObject];
-        [self openPhotosListViewController:photoAsset animated:NO];
+        CYPhotosCollection *photoCollection = [[photosManager requestAllPhotosOptions] firstObject];
+        [self openPhotosListViewController:photoCollection animated:NO];
     }
     
-    self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-
 }
+
 /**
  *  添加监听方法
  */
@@ -76,6 +118,7 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
         _tableView.delegate   = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"CYPhotoLibrayGroupCell" bundle:nil] forCellReuseIdentifier:photoLibrayGroupCell];
+        _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
 }
@@ -117,10 +160,10 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     CYPhotoLibrayGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:photoLibrayGroupCell];
 
     NSArray *fetchResult = self.sectionFetchResults[indexPath.section];
-    CYPhotosAsset *photoAsset = fetchResult[indexPath.row];
+    CYPhotosCollection *photosCollection = fetchResult[indexPath.row];
 
-    cell.photoImageView.image = photoAsset.thumbnail;
-    cell.titleLabel.text      = [NSString stringWithFormat:@"%@ (%@)",photoAsset.localizedTitle,photoAsset.count];
+    cell.photoImageView.image = photosCollection.thumbnail;
+    cell.titleLabel.text      = [NSString stringWithFormat:@"%@ (%@)",photosCollection.localizedTitle,photosCollection.count];
 
 
     return cell;
@@ -132,20 +175,20 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray *fetchResult = self.sectionFetchResults[indexPath.section];
-    CYPhotosAsset *photoAsset = fetchResult[indexPath.row];
+    CYPhotosCollection *photosCollection = fetchResult[indexPath.row];
  
-    [self openPhotosListViewController:photoAsset animated:YES];
+    [self openPhotosListViewController:photosCollection animated:YES];
 
 }
 
 /**
  *  打开单个相册所有照片详情的页面
  */
-- (void)openPhotosListViewController:(CYPhotosAsset*)photosAsset animated:(BOOL)animated {
+- (void)openPhotosListViewController:(CYPhotosCollection*)photosCollection animated:(BOOL)animated {
  
     CYPhotoListViewController *photoDetailVC = [[CYPhotoListViewController alloc] init];
-    photoDetailVC.fetchResult                = photosAsset.fetchResult;
-    photoDetailVC.title                      = photosAsset.localizedTitle;
+    photoDetailVC.fetchResult                = photosCollection.fetchResult;
+    photoDetailVC.title                      = photosCollection.localizedTitle;
     [self.navigationController pushViewController:photoDetailVC animated:animated];
     
 }

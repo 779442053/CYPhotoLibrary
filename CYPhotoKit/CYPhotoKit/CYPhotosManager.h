@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
-@class CYPhotosAsset;
+@class CYPhotosCollection;
 
 @interface CYPhotosManager : NSObject
 
@@ -20,16 +20,16 @@
 /**
  *  所有照片的集合
  */
-- (NSMutableArray <CYPhotosAsset *>*_Nullable)requestAllPhotosOptions;
+- (NSMutableArray <CYPhotosCollection *>*_Nullable)requestAllPhotosOptions;
 
 /**
  *  系统创建的一些相册
  */
-- (NSMutableArray <CYPhotosAsset *>*_Nullable)requestSmartAlbums;
+- (NSMutableArray <CYPhotosCollection *>*_Nullable)requestSmartAlbums;
 
 /**
  *  用户自己创建的相册
  */
-- (NSMutableArray <CYPhotosAsset *>*_Nullable)requestTopLevelUserCollections;
+- (NSMutableArray <CYPhotosCollection *>*_Nullable)requestTopLevelUserCollections;
 
 @end

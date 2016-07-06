@@ -14,15 +14,13 @@
 		243220291D2BB4CD007FE422 /* CYPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 243220281D2BB4CD007FE422 /* CYPhotosManager.m */; };
 		2432202D1D2BB919007FE422 /* CYPhotoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432202B1D2BB919007FE422 /* CYPhotoListViewController.m */; };
 		2432202E1D2BB919007FE422 /* CYPhotoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2432202C1D2BB919007FE422 /* CYPhotoListViewController.xib */; };
-		243220321D2BBD77007FE422 /* CYPhotosAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 243220311D2BBD77007FE422 /* CYPhotosAsset.m */; };
+		243220321D2BBD77007FE422 /* CYPhotosCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 243220311D2BBD77007FE422 /* CYPhotosCollection.m */; };
 		24B34C7A1D2CB184009B8590 /* CYPhotosCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B34C781D2CB184009B8590 /* CYPhotosCollectionViewCell.m */; };
 		24B34C7B1D2CB184009B8590 /* CYPhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C791D2CB184009B8590 /* CYPhotosCollectionViewCell.xib */; };
 		24B34C931D2CB4E3009B8590 /* AssetsPickerChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C7D1D2CB4E3009B8590 /* AssetsPickerChecked.png */; };
 		24B34C941D2CB4E3009B8590 /* AssetsPickerChecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C7E1D2CB4E3009B8590 /* AssetsPickerChecked@2x.png */; };
 		24B34C951D2CB4E3009B8590 /* AssetsPickerChecked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C7F1D2CB4E3009B8590 /* AssetsPickerChecked@3x.png */; };
 		24B34C961D2CB4E3009B8590 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C801D2CB4E3009B8590 /* camera@2x.png */; };
-		24B34C971D2CB4E3009B8590 /* example6.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C811D2CB4E3009B8590 /* example6.jpeg */; };
-		24B34C981D2CB4E3009B8590 /* iconfont-tianjia.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C821D2CB4E3009B8590 /* iconfont-tianjia.png */; };
 		24B34C991D2CB4E3009B8590 /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C831D2CB4E3009B8590 /* lock@2x.png */; };
 		24B34C9A1D2CB4E3009B8590 /* nav_delete_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C841D2CB4E3009B8590 /* nav_delete_btn.png */; };
 		24B34C9B1D2CB4E3009B8590 /* nav_delete_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C851D2CB4E3009B8590 /* nav_delete_btn@2x.png */; };
@@ -35,10 +33,9 @@
 		24B34CA21D2CB4E3009B8590 /* shanguangdeng@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C8C1D2CB4E3009B8590 /* shanguangdeng@2x.png */; };
 		24B34CA31D2CB4E3009B8590 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C8D1D2CB4E3009B8590 /* video.png */; };
 		24B34CA41D2CB4E3009B8590 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C8E1D2CB4E3009B8590 /* video@2x.png */; };
-		24B34CA51D2CB4E3009B8590 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C8F1D2CB4E3009B8590 /* X.png */; };
-		24B34CA61D2CB4E3009B8590 /* X@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C901D2CB4E3009B8590 /* X@2x.png */; };
-		24B34CA71D2CB4E3009B8590 /* xiang.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C911D2CB4E3009B8590 /* xiang.png */; };
-		24B34CA81D2CB4E3009B8590 /* xiang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B34C921D2CB4E3009B8590 /* xiang@2x.png */; };
+		24B34CAB1D2CE49C009B8590 /* CYPhotosAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B34CAA1D2CE49C009B8590 /* CYPhotosAsset.m */; };
+		24B34CAF1D2D07B7009B8590 /* CYAuthorizedFailureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B34CAD1D2D07B7009B8590 /* CYAuthorizedFailureViewController.m */; };
+		24B34CB01D2D07B7009B8590 /* CYAuthorizedFailureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B34CAE1D2D07B7009B8590 /* CYAuthorizedFailureViewController.xib */; };
 		66B101221C9EC56D00AE814B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B101211C9EC56D00AE814B /* main.m */; };
 		66B101251C9EC56D00AE814B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B101241C9EC56D00AE814B /* AppDelegate.m */; };
 		66B101281C9EC56D00AE814B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B101271C9EC56D00AE814B /* ViewController.m */; };
@@ -86,8 +83,8 @@
 		2432202B1D2BB919007FE422 /* CYPhotoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPhotoListViewController.m; sourceTree = "<group>"; };
 		2432202C1D2BB919007FE422 /* CYPhotoListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CYPhotoListViewController.xib; sourceTree = "<group>"; };
 		2432202F1D2BBC01007FE422 /* CYPhotosKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPhotosKit.h; sourceTree = "<group>"; };
-		243220301D2BBD77007FE422 /* CYPhotosAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPhotosAsset.h; sourceTree = "<group>"; };
-		243220311D2BBD77007FE422 /* CYPhotosAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPhotosAsset.m; sourceTree = "<group>"; };
+		243220301D2BBD77007FE422 /* CYPhotosCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPhotosCollection.h; sourceTree = "<group>"; };
+		243220311D2BBD77007FE422 /* CYPhotosCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPhotosCollection.m; sourceTree = "<group>"; };
 		24B34C761D2CA869009B8590 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		24B34C771D2CB184009B8590 /* CYPhotosCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPhotosCollectionViewCell.h; sourceTree = "<group>"; };
 		24B34C781D2CB184009B8590 /* CYPhotosCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPhotosCollectionViewCell.m; sourceTree = "<group>"; };
@@ -96,8 +93,6 @@
 		24B34C7E1D2CB4E3009B8590 /* AssetsPickerChecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsPickerChecked@2x.png"; sourceTree = "<group>"; };
 		24B34C7F1D2CB4E3009B8590 /* AssetsPickerChecked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsPickerChecked@3x.png"; sourceTree = "<group>"; };
 		24B34C801D2CB4E3009B8590 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
-		24B34C811D2CB4E3009B8590 /* example6.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = example6.jpeg; sourceTree = "<group>"; };
-		24B34C821D2CB4E3009B8590 /* iconfont-tianjia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-tianjia.png"; sourceTree = "<group>"; };
 		24B34C831D2CB4E3009B8590 /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
 		24B34C841D2CB4E3009B8590 /* nav_delete_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_delete_btn.png; sourceTree = "<group>"; };
 		24B34C851D2CB4E3009B8590 /* nav_delete_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_delete_btn@2x.png"; sourceTree = "<group>"; };
@@ -110,10 +105,11 @@
 		24B34C8C1D2CB4E3009B8590 /* shanguangdeng@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shanguangdeng@2x.png"; sourceTree = "<group>"; };
 		24B34C8D1D2CB4E3009B8590 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
 		24B34C8E1D2CB4E3009B8590 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
-		24B34C8F1D2CB4E3009B8590 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
-		24B34C901D2CB4E3009B8590 /* X@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X@2x.png"; sourceTree = "<group>"; };
-		24B34C911D2CB4E3009B8590 /* xiang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xiang.png; sourceTree = "<group>"; };
-		24B34C921D2CB4E3009B8590 /* xiang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiang@2x.png"; sourceTree = "<group>"; };
+		24B34CA91D2CE49C009B8590 /* CYPhotosAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPhotosAsset.h; sourceTree = "<group>"; };
+		24B34CAA1D2CE49C009B8590 /* CYPhotosAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPhotosAsset.m; sourceTree = "<group>"; };
+		24B34CAC1D2D07B7009B8590 /* CYAuthorizedFailureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYAuthorizedFailureViewController.h; sourceTree = "<group>"; };
+		24B34CAD1D2D07B7009B8590 /* CYAuthorizedFailureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYAuthorizedFailureViewController.m; sourceTree = "<group>"; };
+		24B34CAE1D2D07B7009B8590 /* CYAuthorizedFailureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CYAuthorizedFailureViewController.xib; sourceTree = "<group>"; };
 		66B1011D1C9EC56D00AE814B /* CYPhotoKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYPhotoKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B101211C9EC56D00AE814B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66B101231C9EC56D00AE814B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -181,8 +177,6 @@
 				24B34C7E1D2CB4E3009B8590 /* AssetsPickerChecked@2x.png */,
 				24B34C7F1D2CB4E3009B8590 /* AssetsPickerChecked@3x.png */,
 				24B34C801D2CB4E3009B8590 /* camera@2x.png */,
-				24B34C811D2CB4E3009B8590 /* example6.jpeg */,
-				24B34C821D2CB4E3009B8590 /* iconfont-tianjia.png */,
 				24B34C831D2CB4E3009B8590 /* lock@2x.png */,
 				24B34C841D2CB4E3009B8590 /* nav_delete_btn.png */,
 				24B34C851D2CB4E3009B8590 /* nav_delete_btn@2x.png */,
@@ -195,10 +189,6 @@
 				24B34C8C1D2CB4E3009B8590 /* shanguangdeng@2x.png */,
 				24B34C8D1D2CB4E3009B8590 /* video.png */,
 				24B34C8E1D2CB4E3009B8590 /* video@2x.png */,
-				24B34C8F1D2CB4E3009B8590 /* X.png */,
-				24B34C901D2CB4E3009B8590 /* X@2x.png */,
-				24B34C911D2CB4E3009B8590 /* xiang.png */,
-				24B34C921D2CB4E3009B8590 /* xiang@2x.png */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -303,8 +293,10 @@
 			children = (
 				24B34C7C1D2CB4E3009B8590 /* Resource */,
 				2432202F1D2BBC01007FE422 /* CYPhotosKit.h */,
-				243220301D2BBD77007FE422 /* CYPhotosAsset.h */,
-				243220311D2BBD77007FE422 /* CYPhotosAsset.m */,
+				24B34CA91D2CE49C009B8590 /* CYPhotosAsset.h */,
+				24B34CAA1D2CE49C009B8590 /* CYPhotosAsset.m */,
+				243220301D2BBD77007FE422 /* CYPhotosCollection.h */,
+				243220311D2BBD77007FE422 /* CYPhotosCollection.m */,
 				243220271D2BB4CD007FE422 /* CYPhotosManager.h */,
 				243220281D2BB4CD007FE422 /* CYPhotosManager.m */,
 				66B102A31C9ED53700AE814B /* CYPhotoGroupController.h */,
@@ -320,6 +312,9 @@
 				24B34C771D2CB184009B8590 /* CYPhotosCollectionViewCell.h */,
 				24B34C781D2CB184009B8590 /* CYPhotosCollectionViewCell.m */,
 				24B34C791D2CB184009B8590 /* CYPhotosCollectionViewCell.xib */,
+				24B34CAC1D2D07B7009B8590 /* CYAuthorizedFailureViewController.h */,
+				24B34CAD1D2D07B7009B8590 /* CYAuthorizedFailureViewController.m */,
+				24B34CAE1D2D07B7009B8590 /* CYAuthorizedFailureViewController.xib */,
 			);
 			path = CYPhotoKit;
 			sourceTree = "<group>";
@@ -433,18 +428,15 @@
 				24B34CA41D2CB4E3009B8590 /* video@2x.png in Resources */,
 				24B34C9B1D2CB4E3009B8590 /* nav_delete_btn@2x.png in Resources */,
 				66B101301C9EC56D00AE814B /* LaunchScreen.storyboard in Resources */,
-				24B34C971D2CB4E3009B8590 /* example6.jpeg in Resources */,
 				24B34C9D1D2CB4E3009B8590 /* paizhao@2x.png in Resources */,
 				66B1012D1C9EC56D00AE814B /* Assets.xcassets in Resources */,
-				24B34C981D2CB4E3009B8590 /* iconfont-tianjia.png in Resources */,
-				24B34CA51D2CB4E3009B8590 /* X.png in Resources */,
 				24B34CA31D2CB4E3009B8590 /* video.png in Resources */,
 				243220201D2BA7EB007FE422 /* xiangqing_add2@2x.png in Resources */,
 				24B34C9F1D2CB4E3009B8590 /* shanguangdeng.png in Resources */,
-				24B34CA71D2CB4E3009B8590 /* xiang.png in Resources */,
 				24B34CA11D2CB4E3009B8590 /* shanguangdeng2@2x.png in Resources */,
 				66B1012B1C9EC56D00AE814B /* Main.storyboard in Resources */,
 				24B34C991D2CB4E3009B8590 /* lock@2x.png in Resources */,
+				24B34CB01D2D07B7009B8590 /* CYAuthorizedFailureViewController.xib in Resources */,
 				243220211D2BA7EB007FE422 /* xiangqing_tianjiatupian@2x.png in Resources */,
 				24B34C9C1D2CB4E3009B8590 /* paizhao.png in Resources */,
 				243220261D2BADCA007FE422 /* CYPhotoLibrayGroupCell.xib in Resources */,
@@ -454,9 +446,7 @@
 				24B34CA21D2CB4E3009B8590 /* shanguangdeng@2x.png in Resources */,
 				24B34C7B1D2CB184009B8590 /* CYPhotosCollectionViewCell.xib in Resources */,
 				24B34C931D2CB4E3009B8590 /* AssetsPickerChecked.png in Resources */,
-				24B34CA61D2CB4E3009B8590 /* X@2x.png in Resources */,
 				24B34C961D2CB4E3009B8590 /* camera@2x.png in Resources */,
-				24B34CA81D2CB4E3009B8590 /* xiang@2x.png in Resources */,
 				24B34C9A1D2CB4E3009B8590 /* nav_delete_btn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,8 +472,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				243220321D2BBD77007FE422 /* CYPhotosAsset.m in Sources */,
+				243220321D2BBD77007FE422 /* CYPhotosCollection.m in Sources */,
 				66B1029B1C9ED0AA00AE814B /* UIViewController+ImagePickerController.m in Sources */,
+				24B34CAF1D2D07B7009B8590 /* CYAuthorizedFailureViewController.m in Sources */,
 				66B101281C9EC56D00AE814B /* ViewController.m in Sources */,
 				66B101251C9EC56D00AE814B /* AppDelegate.m in Sources */,
 				66B101551C9EC87900AE814B /* CYPhoto.m in Sources */,
@@ -496,6 +487,7 @@
 				243220251D2BADCA007FE422 /* CYPhotoLibrayGroupCell.m in Sources */,
 				243220291D2BB4CD007FE422 /* CYPhotosManager.m in Sources */,
 				66B1029A1C9ED0AA00AE814B /* CYImagPickerViewController.m in Sources */,
+				24B34CAB1D2CE49C009B8590 /* CYPhotosAsset.m in Sources */,
 				66B101581C9ECB7F00AE814B /* CYCollectionViewCell.m in Sources */,
 				2432202D1D2BB919007FE422 /* CYPhotoListViewController.m in Sources */,
 			);

@@ -7,7 +7,7 @@
 //
 
 #import "CYPhotosManager.h"
-#import "CYPhotosAsset.h"
+#import "CYPhotosCollection.h"
 
 @implementation CYPhotosManager
 
@@ -29,24 +29,24 @@
 /**
  *  所有照片的集合
  */
-- (NSMutableArray <CYPhotosAsset *>*_Nullable)requestAllPhotosOptions {
+- (NSMutableArray <CYPhotosCollection *>*_Nullable)requestAllPhotosOptions {
     
     PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
     allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
     PHFetchResult *allPhotos         = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
     PHAsset *asset                   = [allPhotos firstObject];
-    CYPhotosAsset *photoAsset        = [CYPhotosAsset new];
-    photoAsset.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)allPhotos.count];
-    photoAsset.thumbnail             = [self getImageWithAsset:asset];
-    photoAsset.fetchResult           = allPhotos;
-    photoAsset.localizedTitle        = @"相机胶卷";
+    CYPhotosCollection *photoCollection       = [CYPhotosCollection new];
+    photoCollection.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)allPhotos.count];
+    photoCollection.thumbnail             = [self getImageWithAsset:asset];
+    photoCollection.fetchResult           = allPhotos;
+    photoCollection.localizedTitle        = @"相机胶卷";
 
-    return [NSMutableArray arrayWithObject:photoAsset];
+    return [NSMutableArray arrayWithObject:photoCollection];
 }
 /**
  *  系统创建的一些相册
  */
-- (NSMutableArray <CYPhotosAsset *>*_Nullable)requestSmartAlbums {
+- (NSMutableArray <CYPhotosCollection *>*_Nullable)requestSmartAlbums {
     __weak typeof(self)weakSelf = self;
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     
@@ -57,7 +57,7 @@
         if ([strongSelf needAddPhotoGroup:collection] && assetsFetchResult.count>0) {
             
             PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            CYPhotosAsset *photoAsset        = [CYPhotosAsset new];
+            CYPhotosCollection *photoAsset        = [CYPhotosCollection new];
             photoAsset.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)assetsFetchResult.count];
             photoAsset.thumbnail             = [self getNearByImage:(PHAssetCollection *)collection];
             photoAsset.fetchResult           = assetsFetchResult;
@@ -72,7 +72,7 @@
 /**
  *  用户自己创建的相册
  */
-- (NSMutableArray <CYPhotosAsset *>*_Nullable)requestTopLevelUserCollections {
+- (NSMutableArray <CYPhotosCollection *>*_Nullable)requestTopLevelUserCollections {
     
     PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
     __block NSMutableArray *userPhotoGroups = [NSMutableArray array];
@@ -80,7 +80,7 @@
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
         if (assetsFetchResult.count>0) {
             PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            CYPhotosAsset *photoAsset        = [CYPhotosAsset new];
+            CYPhotosCollection *photoAsset        = [CYPhotosCollection new];
             photoAsset.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)assetsFetchResult.count];
             photoAsset.thumbnail             = [self getNearByImage:(PHAssetCollection *)collection];
             photoAsset.fetchResult           = assetsFetchResult;

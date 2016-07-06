@@ -24,4 +24,6 @@ typedef NS_ENUM(NSInteger,CYPhotoAssetType) {
 /** asset  */
 @property (nonatomic,strong,nullable) PHAsset *asset;
 
+
+
 @end

@@ -11,7 +11,8 @@
 #import "CYImagePickDefine.h"
 #import "CYCollectionViewCell.h"
 #import "CYImagePickerHandle.h"
-#import "CYPhotosKit.h"
+
+#import "CYPhotosAsset.h"
 
 @interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout , CYPhotoNavigationControllerDelegate>
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -49,15 +50,15 @@
 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-  __weak  CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
+    __weak  CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
     CYPhoto *photo = self.dataSource[indexPath.item];
-
+    
     if (photo.type == CYPhotoAssetTypeAdd) {
-         cell.imageView.image = photo.image;
+        cell.imageView.image = photo.image;
     } else {
         
         PHImageManager *imageManager = [PHImageManager defaultManager];
-        [imageManager requestImageForAsset:photo.asset targetSize:CGSizeMake(250.0f, 250.0f) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        [imageManager requestImageForAsset:photo.asset targetSize:CGSizeMake(200.0f, 200.0f) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             cell.imageView.image = result;
         }];
         
@@ -75,12 +76,7 @@
     [self presentViewController:cyNavigationController animated:YES completion:nil];
     cyNavigationController.cyPhotosDelegate = self;
 
-    cyNavigationController.completionBlock = ^(NSArray *array) {
-      
-        NSLog(@"----%@",array);
-        
-    };
-    
+
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
@@ -113,16 +109,17 @@
     [self.dataSource removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self.dataSource.count-1)]];
     __weak typeof(self)weakSelf = self;
     
-    [result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    [result enumerateObjectsUsingBlock:^(CYPhotosAsset *photoAsset, NSUInteger idx, BOOL * _Nonnull stop) {
+
         __strong typeof(weakSelf)strongSelf = weakSelf;
         CYPhoto *photo = [CYPhoto new];
         photo.type     = CYPhotoAssetTypePhoto;
         photo.image    = nil;
-        photo.asset    = obj;
+        photo.asset    = photoAsset.asset;
         [strongSelf.dataSource addObject:photo];
         
     }];
+    
     
     [self.collectionView reloadData];
     
