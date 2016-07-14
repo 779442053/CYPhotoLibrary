@@ -12,6 +12,7 @@
 #import "CYPhotosCollection.h"
 #import "CYPhotosCollectionViewCell.h"
 #import "CYPhotosAsset.h"
+#import "CYCollectionViewCell.h"
 
 static CGFloat const itemMarigin = 5.0f;
 
@@ -41,6 +42,7 @@ static CGFloat const itemMarigin = 5.0f;
     self.itemSize                            = CGSizeMake(itemW, itemH);
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"CYPhotosCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CYPhotosCollectionViewCell"];
+    [self.collectionView registerClass:[CYCollectionViewCell class] forCellWithReuseIdentifier:@"CYCollectionViewCell"];
     self.collectionView.alwaysBounceVertical = YES;
 
     self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
@@ -74,6 +76,7 @@ static CGFloat const itemMarigin = 5.0f;
         [array addObject:photosAsset];
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllerDidFinished" object:array];
+    
 }
 
 
@@ -109,10 +112,7 @@ static CGFloat const itemMarigin = 5.0f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    
- 
     [self.collectionView reloadData];
-
 }
 
 - (void)setFetchResult:(PHFetchResult<PHAsset *> *)fetchResult {
@@ -129,8 +129,6 @@ static CGFloat const itemMarigin = 5.0f;
     };
 
     dispatch_global_safe(block);
-
-    
     
 }
 
@@ -159,22 +157,31 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.fetchResult.count;
+    return self.fetchResult.count+1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-   CYPhotosCollectionViewCell *photosCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYPhotosCollectionViewCell" forIndexPath:indexPath];
+    if (indexPath.row<self.fetchResult.count) {
+        CYPhotosCollectionViewCell *photosCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYPhotosCollectionViewCell" forIndexPath:indexPath];
+        
+        PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
+        NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
+        BOOL isSelect                          = [self.cacheSelectItems[key] boolValue];
+        photosCell.selectItem                  = isSelect;
+        photosCell.imageManager                = self.imageManager;
+        photosCell.photosAsset                 = asset;
+        return photosCell;
 
-   PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
-   NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
-   BOOL isSelect                          = [self.cacheSelectItems[key] boolValue];
-   photosCell.selectItem                  = isSelect;
-   photosCell.imageManager                = self.imageManager;
-   photosCell.photosAsset                 = asset;
+    } else {
+        
+        __weak  CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
 
-
-    return photosCell;
+        cell.contentView.backgroundColor = [UIColor redColor];
+        
+        return cell;
+    }
+  
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -196,30 +203,32 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
-    CYPhotosAsset *photosAsset = [CYPhotosAsset new];
-    photosAsset.asset          = asset;
-    
-    NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
-    BOOL isSelect                          = ![self.cacheSelectItems[key] boolValue];
-    NSString *flag                         = nil;
-    if (isSelect) {
-        if (self.selectAssetDictionary.count<= maxSelectPhotoCount-1) {
-            self.selectAssetDictionary[key]        = photosAsset;
-            [self reloadBottomViewStatus];
-            flag = @"1";
+    if (indexPath.item  < self.fetchResult.count) {
+        PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
+        CYPhotosAsset *photosAsset = [CYPhotosAsset new];
+        photosAsset.asset          = asset;
+        
+        NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
+        BOOL isSelect                          = ![self.cacheSelectItems[key] boolValue];
+        NSString *flag                         = nil;
+        if (isSelect) {
+            if (self.selectAssetDictionary.count<= maxSelectPhotoCount-1) {
+                self.selectAssetDictionary[key]        = photosAsset;
+                [self reloadBottomViewStatus];
+                flag = @"1";
+            } else {
+                flag = @"0";
+                [self showAlertView];
+            }
         } else {
             flag = @"0";
-            [self showAlertView];
+            [self.selectAssetDictionary removeObjectForKey:key];
+            [self reloadBottomViewStatus];
         }
-    } else {
-        flag = @"0";
-        [self.selectAssetDictionary removeObjectForKey:key];
-        [self reloadBottomViewStatus];
+        
+        self.cacheSelectItems[key]             = flag;
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
-    
-    self.cacheSelectItems[key]             = flag;
-    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
     
     // 0 173 234 
 }
