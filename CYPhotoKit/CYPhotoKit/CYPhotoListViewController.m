@@ -177,6 +177,7 @@ static CGFloat const itemMarigin = 5.0f;
         
         __weak  CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
 
+        cell.imageView.image = [UIImage imageNamed:@"camera"];
         cell.contentView.backgroundColor = [UIColor redColor];
         
         return cell;
