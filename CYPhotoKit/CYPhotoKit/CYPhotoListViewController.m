@@ -13,7 +13,7 @@
 #import "CYPhotosCollectionViewCell.h"
 #import "CYPhotosAsset.h"
 #import "CYCollectionViewCell.h"
-
+#import "CYImagePickerHandle.h"
 static CGFloat const itemMarigin = 5.0f;
 
 @interface CYPhotoListViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -229,6 +229,17 @@ static CGFloat const itemMarigin = 5.0f;
         
         self.cacheSelectItems[key]             = flag;
         [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }  else {
+
+        [CYImagePickerHandle showCYImagePicerViewControllerInViewController:self
+                                                                   callBack:^(UIImage *image, NSDictionary *infoDict)
+        {
+           
+            
+            
+        }];
+        
+        
     }
     
     // 0 173 234 
