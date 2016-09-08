@@ -72,10 +72,16 @@
     
     CYPhoto *photo = self.dataSource[indexPath.item];
     if (photo.type == CYPhotoAssetTypePhoto) return;
+    
     CYPhotoNavigationController *cyNavigationController = [CYPhotoNavigationController showPhotosViewController];
     [self presentViewController:cyNavigationController animated:YES completion:nil];
-    cyNavigationController.cyPhotosDelegate = self;
-
+    cyNavigationController.maxPickerImageCount = 10;
+    cyNavigationController.cyPhotosDelegate             = self;
+    
+    cyNavigationController.completionBlock = ^(NSArray *result) {
+        
+        
+    };
 
 }
 

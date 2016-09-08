@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^PhotosCompletion)(NSArray *_Nullable result);
+typedef void (^PhotosCompletion) (NSArray *_Nullable result);
 
 @protocol CYPhotoNavigationControllerDelegate;
 /**
