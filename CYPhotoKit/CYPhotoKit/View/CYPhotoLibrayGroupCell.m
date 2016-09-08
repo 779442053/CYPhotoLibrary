@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     
     self.accessoryType                = UITableViewCellAccessoryDisclosureIndicator;
     self.photoImageView.contentMode   = UIViewContentModeScaleAspectFill;

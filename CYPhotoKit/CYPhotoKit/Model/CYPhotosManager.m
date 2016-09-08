@@ -139,10 +139,14 @@
  *  根据已 asset 获取一张图片资源
  */
 - (UIImage *)getImageWithAsset:(PHAsset *)asset {
-    PHImageManager *imageManager = [PHImageManager defaultManager];
+    PHImageManager *imageManager  = [PHImageManager defaultManager];
     __block  UIImage *sourceImage = nil;
-    [imageManager requestImageForAsset:asset targetSize:CGSizeMake(2000.0f, 2000.0f) contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        sourceImage = result;
+
+    [imageManager requestImageForAsset:asset
+                            targetSize:CGSizeMake(2000.0f, 2000.0f)
+                           contentMode:PHImageContentModeDefault options:nil
+                         resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+       sourceImage                   = result;
     }];
     return sourceImage;
 }

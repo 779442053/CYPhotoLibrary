@@ -13,13 +13,13 @@
  */
 @interface CYPhotosCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic,nullable) IBOutlet UIImageView *imageView;
 
 /** photosAsset  */
 @property (nonatomic,strong,nullable) PHAsset *photosAsset;
 
 /** imageManager  */
-@property (nonatomic, weak) PHCachingImageManager *imageManager;
+@property (nonatomic, weak,nullable) PHCachingImageManager *imageManager;
 
 /** selectItem */
 @property (nonatomic,assign,getter=isSelectItem) BOOL selectItem;
