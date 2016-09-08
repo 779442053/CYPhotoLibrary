@@ -23,7 +23,6 @@
  *  获取图片资源管理者实例
  */
 + (_Nullable instancetype)defaultManager {
-
     return [[super alloc] init];
 }
 /**
