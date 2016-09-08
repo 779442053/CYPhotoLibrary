@@ -1,7 +1,7 @@
 //
 //  CYPhotoNavigationController.h
 //  CYPhotoKit
-//
+// 上海触影文化传播有限公司 CY BK
 //  Created by dongzb on 16/3/20.
 //  Copyright © 2016年 大兵布莱恩特. All rights reserved.
 //
@@ -35,6 +35,10 @@ typedef void(^PhotosCompletion)(NSArray *_Nullable result);
 
 /** cyPhotosDelegate */
 @property (nonatomic,weak,nullable) id <CYPhotoNavigationControllerDelegate> cyPhotosDelegate;
+/**
+ *  最大选择图片的数量
+ */
+@property (nonatomic,assign) NSInteger maxPickerImageCount;
 
 @end
 

@@ -12,8 +12,7 @@
 #import "CYPhotosCollection.h"
 #import "CYPhotosCollectionViewCell.h"
 #import "CYPhotosAsset.h"
-#import "CYCollectionViewCell.h"
-#import "CYImagePickerHandle.h"
+
 static CGFloat const itemMarigin = 5.0f;
 
 @interface CYPhotoListViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -23,6 +22,7 @@ static CGFloat const itemMarigin = 5.0f;
 @property (nonatomic,strong ) NSMutableDictionary   *selectAssetDictionary;
 @property (nonatomic,strong ) UIView                *bottomView;
 @property (nonatomic,assign ) BOOL                  needScrollToBottom;
+@property (nonatomic,assign) NSInteger  maxCount;
 @end
 
 @implementation CYPhotoListViewController
@@ -42,20 +42,24 @@ static CGFloat const itemMarigin = 5.0f;
     self.itemSize                            = CGSizeMake(itemW, itemH);
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"CYPhotosCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CYPhotosCollectionViewCell"];
-    [self.collectionView registerClass:[CYCollectionViewCell class] forCellWithReuseIdentifier:@"CYCollectionViewCell"];
     self.collectionView.alwaysBounceVertical = YES;
 
     self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
 
-    [self reloadBottomViewStatus];
 
     self.countLabel.layer.cornerRadius       = 10.0f;
     self.countLabel.layer.masksToBounds      = YES;
     self.needScrollToBottom                  = YES;
-    
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    
+
+    self.collectionView.dataSource           = self;
+    self.collectionView.delegate             = self;
+
+    CYPhotoNavigationController *nav         = (CYPhotoNavigationController *)self.navigationController;
+    self.maxCount                            = nav.maxPickerImageCount;
+    self.maxImageLabel.text                  = [NSString stringWithFormat:@"最多可选取%@张相片",@(self.maxCount)];
+
+    [self reloadBottomViewStatus];
+
 }
 #pragma mark - 按钮点击事件
 
@@ -76,7 +80,6 @@ static CGFloat const itemMarigin = 5.0f;
         [array addObject:photosAsset];
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllerDidFinished" object:array];
-    
 }
 
 
@@ -112,7 +115,10 @@ static CGFloat const itemMarigin = 5.0f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    
+ 
     [self.collectionView reloadData];
+
 }
 
 - (void)setFetchResult:(PHFetchResult<PHAsset *> *)fetchResult {
@@ -146,8 +152,8 @@ static CGFloat const itemMarigin = 5.0f;
  */
 - (void)collectionViewScrollToBottom {
     
-    CGPoint off = self.collectionView.contentOffset;
-    off.y       = self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom;
+    CGPoint off             = self.collectionView.contentOffset;
+    off.y                   = self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom;
     [self.collectionView setContentOffset:off animated:NO];
     self.needScrollToBottom = NO;
 
@@ -157,32 +163,16 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.fetchResult.count+1;
+    return self.fetchResult.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.row<self.fetchResult.count) {
-        CYPhotosCollectionViewCell *photosCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYPhotosCollectionViewCell" forIndexPath:indexPath];
-        
-        PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
-        NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
-        BOOL isSelect                          = [self.cacheSelectItems[key] boolValue];
-        photosCell.selectItem                  = isSelect;
-        photosCell.imageManager                = self.imageManager;
-        photosCell.photosAsset                 = asset;
-        return photosCell;
+   CYPhotosCollectionViewCell *photosCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYPhotosCollectionViewCell" forIndexPath:indexPath];
 
-    } else {
-        
-        __weak  CYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYCollectionViewCell" forIndexPath:indexPath];
+   [self setupCollectionViewCell:photosCell atIndexPath:indexPath];
 
-        cell.imageView.image = [UIImage imageNamed:@"camera"];
-        cell.contentView.backgroundColor = [UIColor redColor];
-        
-        return cell;
-    }
-  
+    return photosCell;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -204,50 +194,51 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.item  < self.fetchResult.count) {
-        PHAsset *asset                         = [self.fetchResult objectAtIndex:indexPath.item];
-        CYPhotosAsset *photosAsset = [CYPhotosAsset new];
-        photosAsset.asset          = asset;
-        
-        NSString *key                          = [NSString stringWithFormat:@"%@",@(indexPath.item)];
-        BOOL isSelect                          = ![self.cacheSelectItems[key] boolValue];
-        NSString *flag                         = nil;
-        if (isSelect) {
-            if (self.selectAssetDictionary.count<= maxSelectPhotoCount-1) {
-                self.selectAssetDictionary[key]        = photosAsset;
-                [self reloadBottomViewStatus];
-                flag = @"1";
-            } else {
-                flag = @"0";
-                [self showAlertView];
-            }
+    PHAsset *asset             = [self.fetchResult objectAtIndex:indexPath.item];
+    CYPhotosAsset *photosAsset = [CYPhotosAsset new];
+    photosAsset.asset          = asset;
+
+    NSString *key              = [NSString stringWithFormat:@"%@",@(indexPath.item)];
+    BOOL isSelect              = ![self.cacheSelectItems[key] boolValue];
+    NSString *flag             = nil;
+    if (isSelect) {
+        if (self.selectAssetDictionary.count<= self.maxCount - 1) {
+            self.selectAssetDictionary[key] = photosAsset;
+            flag                            = @"1";
+            [self reloadBottomViewStatus];
         } else {
             flag = @"0";
-            [self.selectAssetDictionary removeObjectForKey:key];
-            [self reloadBottomViewStatus];
+            [self showAlertView];
         }
-        
-        self.cacheSelectItems[key]             = flag;
-        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    }  else {
-
-        [CYImagePickerHandle showCYImagePicerViewControllerInViewController:self
-                                                                   callBack:^(UIImage *image, NSDictionary *infoDict)
-        {
-           
-            
-            
-        }];
-        
-        
+    } else {
+        flag = @"0";
+        [self.selectAssetDictionary removeObjectForKey:key];
+        [self reloadBottomViewStatus];
     }
     
-    // 0 173 234 
+    self.cacheSelectItems[key]             = flag;
+
+    CYPhotosCollectionViewCell *photosCell = (CYPhotosCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    [self setupCollectionViewCell:photosCell atIndexPath:indexPath];
+
+}
+
+- (void)setupCollectionViewCell:(CYPhotosCollectionViewCell*)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    PHAsset *asset    = [self.fetchResult objectAtIndex:indexPath.item];
+    NSString *key     = [NSString stringWithFormat:@"%@",@(indexPath.item)];
+
+    BOOL select       = [self.cacheSelectItems[key] boolValue];
+    cell.selectItem   = select;
+    cell.imageManager = self.imageManager;
+    cell.photosAsset  = asset;
+
 }
 
 - (void)showAlertView {
     
-    NSString *msg = [NSString stringWithFormat:@"选取的照片不能超过%ld张",(long)maxSelectPhotoCount];
+    NSString *msg = [NSString stringWithFormat:@"选取的照片不能超过%ld张",(long)self.maxCount];
     
     UIAlertController *alertViewControler = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
     [alertViewControler addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

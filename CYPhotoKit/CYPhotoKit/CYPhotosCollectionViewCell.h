@@ -13,8 +13,6 @@
  */
 @interface CYPhotosCollectionViewCell : UICollectionViewCell
 
-NS_ASSUME_NONNULL_BEGIN
-
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 /** photosAsset  */
@@ -28,5 +26,3 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @end
-
-NS_ASSUME_NONNULL_END

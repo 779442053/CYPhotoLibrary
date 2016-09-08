@@ -48,6 +48,7 @@
 - (void)setPhotosAsset:(PHAsset *)photosAsset {
     _photosAsset    = photosAsset;
    
+    __weak typeof(self)weakSelf = self;
     
     /**
      synchronous：指定请求是否同步执行。
@@ -57,8 +58,7 @@
      
      */
     
-    __weak typeof(self)weakSelf = self;
-
+    
     PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
     option.synchronous  = NO;
     option.resizeMode   = PHImageRequestOptionsResizeModeFast;

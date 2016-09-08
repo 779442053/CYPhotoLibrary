@@ -33,6 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 /**
+ *  最大选取照片数量
+ */
+@property (weak, nonatomic) IBOutlet UILabel *maxImageLabel;
+
+/**
  *  预览按钮点击
  */
 - (IBAction)previewButtonClick:(id)sender;
@@ -40,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  完成按钮点击
  */
 - (IBAction)finishedButtonClick:(id)sender;
+
+
 
 NS_ASSUME_NONNULL_END
 

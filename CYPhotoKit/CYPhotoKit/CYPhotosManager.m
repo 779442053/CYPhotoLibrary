@@ -31,15 +31,15 @@
  */
 - (NSMutableArray <CYPhotosCollection *>*_Nullable)requestAllPhotosOptions {
     
-    PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
-    allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    PHFetchResult *allPhotos         = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
-    PHAsset *asset                   = [allPhotos firstObject];
-    CYPhotosCollection *photoCollection       = [CYPhotosCollection new];
-    photoCollection.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)allPhotos.count];
-    photoCollection.thumbnail             = [self getImageWithAsset:asset];
-    photoCollection.fetchResult           = allPhotos;
-    photoCollection.localizedTitle        = @"相机胶卷";
+    PHFetchOptions *allPhotosOptions    = [[PHFetchOptions alloc] init];
+    allPhotosOptions.sortDescriptors    = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+    PHFetchResult *allPhotos            = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
+    PHAsset *asset                      = [allPhotos firstObject];
+    CYPhotosCollection *photoCollection = [CYPhotosCollection new];
+    photoCollection.count               = [NSString stringWithFormat:@"%lu",(unsigned long)allPhotos.count];
+    photoCollection.thumbnail           = [self getImageWithAsset:asset];
+    photoCollection.fetchResult         = allPhotos;
+    photoCollection.localizedTitle      = @"相机胶卷";
 
     return [NSMutableArray arrayWithObject:photoCollection];
 }
@@ -47,17 +47,17 @@
  *  系统创建的一些相册
  */
 - (NSMutableArray <CYPhotosCollection *>*_Nullable)requestSmartAlbums {
-    __weak typeof(self)weakSelf = self;
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    
+    __weak typeof(self)weakSelf         = self;
+    PHFetchResult *smartAlbums          = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+
     __block NSMutableArray *photoGroups = [NSMutableArray array];
     [smartAlbums enumerateObjectsUsingBlock:^(PHAssetCollection *collection, NSUInteger idx, BOOL * _Nonnull stop) {
         __strong typeof(weakSelf)strongSelf = weakSelf;
-        PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
+        PHFetchResult *assetsFetchResult    = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
         if ([strongSelf needAddPhotoGroup:collection] && assetsFetchResult.count>0) {
             
             PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            CYPhotosCollection *photoAsset        = [CYPhotosCollection new];
+            CYPhotosCollection *photoAsset   = [CYPhotosCollection new];
             photoAsset.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)assetsFetchResult.count];
             photoAsset.thumbnail             = [self getNearByImage:(PHAssetCollection *)collection];
             photoAsset.fetchResult           = assetsFetchResult;
@@ -74,13 +74,13 @@
  */
 - (NSMutableArray <CYPhotosCollection *>*_Nullable)requestTopLevelUserCollections {
     
-    PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
+    PHFetchResult *topLevelUserCollections  = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
     __block NSMutableArray *userPhotoGroups = [NSMutableArray array];
     [topLevelUserCollections enumerateObjectsUsingBlock:^(PHAssetCollection *collection, NSUInteger idx, BOOL * _Nonnull stop) {
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
         if (assetsFetchResult.count>0) {
             PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:(PHAssetCollection *)collection options:nil];
-            CYPhotosCollection *photoAsset        = [CYPhotosCollection new];
+            CYPhotosCollection *photoAsset   = [CYPhotosCollection new];
             photoAsset.count                 = [NSString stringWithFormat:@"%lu",(unsigned long)assetsFetchResult.count];
             photoAsset.thumbnail             = [self getNearByImage:(PHAssetCollection *)collection];
             photoAsset.fetchResult           = assetsFetchResult;

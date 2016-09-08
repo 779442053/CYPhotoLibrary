@@ -23,7 +23,7 @@
     CYPhotoGroupController *cyPhotoGroupViewController = [[CYPhotoGroupController alloc] init];
     
     CYPhotoNavigationController *navigationController = [[CYPhotoNavigationController alloc] initWithRootViewController:cyPhotoGroupViewController];
- 
+    navigationController.maxPickerImageCount          = maxSelectPhotoCount;
     return navigationController;
 }
 #pragma mark - 监听通知
