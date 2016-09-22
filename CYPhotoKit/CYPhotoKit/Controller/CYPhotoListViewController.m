@@ -6,16 +6,18 @@
 //  Created by 董招兵 on 16/7/5.
 //  Copyright © 2016年 大兵布莱恩特. All rights reserved.
 //
-
-#import "CYPhotoListViewController.h"
+#import "CYPhotosAsset.h"
 #import <Photos/Photos.h>
 #import "CYPhotosCollection.h"
+#import "CYPhotoListViewController.h"
 #import "CYPhotosCollectionViewCell.h"
-#import "CYPhotosAsset.h"
+#import "CYPhotoPreviewViewController.h"
+
 
 static CGFloat const itemMarigin = 5.0f;
 
 @interface CYPhotoListViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 @property (nonatomic,assign ) CGSize                itemSize;
 @property (nonatomic,strong ) NSMutableDictionary   *cacheSelectItems;
@@ -43,27 +45,28 @@ static CGFloat const itemMarigin = 5.0f;
     CGFloat itemW                            = (screenW - 3*itemMarigin)/4;
     CGFloat itemH                            = itemW;
     self.itemSize                            = CGSizeMake(itemW, itemH);
-    
+
     [self.collectionView registerNib:[UINib nibWithNibName:@"CYPhotosCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CYPhotosCollectionViewCell"];
     self.collectionView.alwaysBounceVertical = YES;
-    
+
     self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-    
-    
+
+
     self.countLabel.layer.cornerRadius       = 10.0f;
     self.countLabel.layer.masksToBounds      = YES;
     self.needScrollToBottom                  = YES;
     self.collectionView.dataSource           = self;
     self.collectionView.delegate             = self;
-    
+
     // 设置最大选取照片的数量
     CYPhotoNavigationController *nav         = (CYPhotoNavigationController *)self.navigationController;
     self.maxCount                            = nav.maxPickerImageCount;
     self.maxImageLabel.text                  = [NSString stringWithFormat:@"最多可选取%@张相片",@(self.maxCount)];
-    
+
     [self reloadBottomViewStatus];
     
 }
+
 #pragma mark - 按钮点击事件
 
 - (void)dismiss {
@@ -76,12 +79,23 @@ static CGFloat const itemMarigin = 5.0f;
  */
 - (IBAction)previewButtonClick:(id)sender {
     
-    
+    CYPhotoPreviewViewController *previewVC = [[CYPhotoPreviewViewController alloc] init];
+    previewVC.soureImages                   = [self getSelectImagesArray];
+    [self.navigationController pushViewController:previewVC animated:YES];
+
 }
 /**
  *  完成按钮选取图片结束
  */
 - (IBAction)finishedButtonClick:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllerDidFinished" object:[self getSelectImagesArray]];
+}
+
+/**
+ *  获取用户选中的图片数组
+ */
+- (NSMutableArray *)getSelectImagesArray {
     
     __block   NSMutableArray *array = [NSMutableArray array];
     
@@ -89,8 +103,7 @@ static CGFloat const itemMarigin = 5.0f;
         [array addObject:photosAsset];
     }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllerDidFinished" object:array];
-    
+    return  array;
 }
 
 
@@ -125,7 +138,6 @@ static CGFloat const itemMarigin = 5.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     
     [self.collectionView reloadData];
 }
