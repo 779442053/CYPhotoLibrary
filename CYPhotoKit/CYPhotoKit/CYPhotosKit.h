@@ -8,6 +8,7 @@
 
 #ifndef CYPhotosKit_h
 #define CYPhotosKit_h
+#import <UIKit/UIKit.h>
 
 #import "CYPhotoNavigationController.h"
 #import "CYPhotoGroupController.h"
@@ -15,7 +16,7 @@
 #import "CYPhotoLibrayGroupCell.h"
 #import "CYPhotoListViewController.h"
 
-
+#define keyWindow [[[UIApplication sharedApplication]delegate]window]
 
 #define dispatch_main_safe(block)\
 if ([NSThread isMainThread]) {\
@@ -35,11 +36,11 @@ block();\
 // DEBUG模式下进行调试打印
 
 // 输出结果标记出所在类方法与行数
-#define CYLog(fmt, ...)   NSLog((@"\n%s[Line: %d]™ ->" fmt), strrchr(__FUNCTION__,'['), __LINE__, ##__VA_ARGS__)
+#define BKLog(fmt, ...)   NSLog((@"\n%s[Line: %d]™ ->" fmt), strrchr(__FUNCTION__,'['), __LINE__, ##__VA_ARGS__)
 
 #else
 
-#define CYLog(...)   {}
+#define BKLog(...)   {}
 
 #endif
 

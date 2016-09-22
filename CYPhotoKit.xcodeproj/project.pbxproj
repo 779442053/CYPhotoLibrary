@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		243220201D2BA7EB007FE422 /* xiangqing_add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2432201E1D2BA7EB007FE422 /* xiangqing_add2@2x.png */; };
-		243220211D2BA7EB007FE422 /* xiangqing_tianjiatupian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2432201F1D2BA7EB007FE422 /* xiangqing_tianjiatupian@2x.png */; };
+		24D4E61F1D93881400E95FF1 /* xiangqing_add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D4E61E1D93881400E95FF1 /* xiangqing_add2@2x.png */; };
+		24D4E6221D93886E00E95FF1 /* hubs_uploadImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D4E6201D93886E00E95FF1 /* hubs_uploadImage@2x.png */; };
+		24D4E6231D93886E00E95FF1 /* hubs_uploadImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D4E6211D93886E00E95FF1 /* hubs_uploadImage@3x.png */; };
 		24D635281D8122FC008803D6 /* CYAuthorizedFailureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D634FD1D8122FC008803D6 /* CYAuthorizedFailureViewController.m */; };
 		24D635291D8122FC008803D6 /* CYAuthorizedFailureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D634FE1D8122FC008803D6 /* CYAuthorizedFailureViewController.xib */; };
 		24D6352A1D8122FC008803D6 /* CYPhotoGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D635001D8122FC008803D6 /* CYPhotoGroupController.m */; };
@@ -34,8 +35,6 @@
 		24D6353E1D8122FC008803D6 /* shanguangdeng@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D6351C1D8122FC008803D6 /* shanguangdeng@2x.png */; };
 		24D6353F1D8122FC008803D6 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D6351D1D8122FC008803D6 /* video.png */; };
 		24D635401D8122FC008803D6 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D6351E1D8122FC008803D6 /* video@2x.png */; };
-		24D635411D8122FC008803D6 /* xiangqing_add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D6351F1D8122FC008803D6 /* xiangqing_add2@2x.png */; };
-		24D635421D8122FC008803D6 /* xiangqing_tianjiatupian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D635201D8122FC008803D6 /* xiangqing_tianjiatupian@2x.png */; };
 		24D635431D8122FC008803D6 /* CYPhotoLibrayGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D635231D8122FC008803D6 /* CYPhotoLibrayGroupCell.m */; };
 		24D635441D8122FC008803D6 /* CYPhotoLibrayGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D635241D8122FC008803D6 /* CYPhotoLibrayGroupCell.xib */; };
 		24D635451D8122FC008803D6 /* CYPhotosCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D635261D8122FC008803D6 /* CYPhotosCollectionViewCell.m */; };
@@ -74,9 +73,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2432201E1D2BA7EB007FE422 /* xiangqing_add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "xiangqing_add2@2x.png"; path = "image640/xiangqing_add2@2x.png"; sourceTree = "<group>"; };
-		2432201F1D2BA7EB007FE422 /* xiangqing_tianjiatupian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "xiangqing_tianjiatupian@2x.png"; path = "image640/xiangqing_tianjiatupian@2x.png"; sourceTree = "<group>"; };
 		24B34C761D2CA869009B8590 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		24D4E61E1D93881400E95FF1 /* xiangqing_add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiangqing_add2@2x.png"; sourceTree = "<group>"; };
+		24D4E6201D93886E00E95FF1 /* hubs_uploadImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hubs_uploadImage@2x.png"; sourceTree = "<group>"; };
+		24D4E6211D93886E00E95FF1 /* hubs_uploadImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hubs_uploadImage@3x.png"; sourceTree = "<group>"; };
 		24D634FC1D8122FC008803D6 /* CYAuthorizedFailureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYAuthorizedFailureViewController.h; sourceTree = "<group>"; };
 		24D634FD1D8122FC008803D6 /* CYAuthorizedFailureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYAuthorizedFailureViewController.m; sourceTree = "<group>"; };
 		24D634FE1D8122FC008803D6 /* CYAuthorizedFailureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CYAuthorizedFailureViewController.xib; sourceTree = "<group>"; };
@@ -110,8 +110,6 @@
 		24D6351C1D8122FC008803D6 /* shanguangdeng@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shanguangdeng@2x.png"; sourceTree = "<group>"; };
 		24D6351D1D8122FC008803D6 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
 		24D6351E1D8122FC008803D6 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
-		24D6351F1D8122FC008803D6 /* xiangqing_add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiangqing_add2@2x.png"; sourceTree = "<group>"; };
-		24D635201D8122FC008803D6 /* xiangqing_tianjiatupian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiangqing_tianjiatupian@2x.png"; sourceTree = "<group>"; };
 		24D635221D8122FC008803D6 /* CYPhotoLibrayGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPhotoLibrayGroupCell.h; sourceTree = "<group>"; };
 		24D635231D8122FC008803D6 /* CYPhotoLibrayGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPhotoLibrayGroupCell.m; sourceTree = "<group>"; };
 		24D635241D8122FC008803D6 /* CYPhotoLibrayGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CYPhotoLibrayGroupCell.xib; sourceTree = "<group>"; };
@@ -219,6 +217,9 @@
 		24D6350E1D8122FC008803D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				24D4E6201D93886E00E95FF1 /* hubs_uploadImage@2x.png */,
+				24D4E6211D93886E00E95FF1 /* hubs_uploadImage@3x.png */,
+				24D4E61E1D93881400E95FF1 /* xiangqing_add2@2x.png */,
 				24D6350F1D8122FC008803D6 /* AssetsPickerChecked.png */,
 				24D635101D8122FC008803D6 /* AssetsPickerChecked@2x.png */,
 				24D635111D8122FC008803D6 /* AssetsPickerChecked@3x.png */,
@@ -235,8 +236,6 @@
 				24D6351C1D8122FC008803D6 /* shanguangdeng@2x.png */,
 				24D6351D1D8122FC008803D6 /* video.png */,
 				24D6351E1D8122FC008803D6 /* video@2x.png */,
-				24D6351F1D8122FC008803D6 /* xiangqing_add2@2x.png */,
-				24D635201D8122FC008803D6 /* xiangqing_tianjiatupian@2x.png */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -279,7 +278,6 @@
 			children = (
 				24D634FA1D8122FC008803D6 /* CYPhotoKit */,
 				66B102911C9ED0AA00AE814B /* CYImagePickKit */,
-				66B101591C9ECE0600AE814B /* Resource */,
 				66B101231C9EC56D00AE814B /* AppDelegate.h */,
 				66B101241C9EC56D00AE814B /* AppDelegate.m */,
 				66B101261C9EC56D00AE814B /* ViewController.h */,
@@ -322,15 +320,6 @@
 				66B101471C9EC56D00AE814B /* Info.plist */,
 			);
 			path = CYPhotoKitUITests;
-			sourceTree = "<group>";
-		};
-		66B101591C9ECE0600AE814B /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				2432201E1D2BA7EB007FE422 /* xiangqing_add2@2x.png */,
-				2432201F1D2BA7EB007FE422 /* xiangqing_tianjiatupian@2x.png */,
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 		66B102911C9ED0AA00AE814B /* CYImagePickKit */ = {
@@ -417,6 +406,8 @@
 				TargetAttributes = {
 					66B1011C1C9EC56D00AE814B = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = XD3776868Q;
+						ProvisioningStyle = Automatic;
 					};
 					66B101351C9EC56D00AE814B = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -463,23 +454,22 @@
 				24D6353C1D8122FC008803D6 /* shanguangdeng2.png in Resources */,
 				24D6353F1D8122FC008803D6 /* video.png in Resources */,
 				24D635321D8122FC008803D6 /* AssetsPickerChecked@2x.png in Resources */,
+				24D4E61F1D93881400E95FF1 /* xiangqing_add2@2x.png in Resources */,
 				24D635401D8122FC008803D6 /* video@2x.png in Resources */,
-				24D635411D8122FC008803D6 /* xiangqing_add2@2x.png in Resources */,
 				24D635391D8122FC008803D6 /* paizhao@2x.png in Resources */,
 				24D635381D8122FC008803D6 /* paizhao.png in Resources */,
+				24D4E6231D93886E00E95FF1 /* hubs_uploadImage@3x.png in Resources */,
 				24D6353E1D8122FC008803D6 /* shanguangdeng@2x.png in Resources */,
-				24D635421D8122FC008803D6 /* xiangqing_tianjiatupian@2x.png in Resources */,
 				24D635361D8122FC008803D6 /* nav_delete_btn.png in Resources */,
 				24D635291D8122FC008803D6 /* CYAuthorizedFailureViewController.xib in Resources */,
 				24D6353A1D8122FC008803D6 /* pc_circle_placeholder@2x.png in Resources */,
-				243220201D2BA7EB007FE422 /* xiangqing_add2@2x.png in Resources */,
 				24D635441D8122FC008803D6 /* CYPhotoLibrayGroupCell.xib in Resources */,
 				24D6353D1D8122FC008803D6 /* shanguangdeng2@2x.png in Resources */,
 				24D635371D8122FC008803D6 /* nav_delete_btn@2x.png in Resources */,
 				24D6353B1D8122FC008803D6 /* shanguangdeng.png in Resources */,
+				24D4E6221D93886E00E95FF1 /* hubs_uploadImage@2x.png in Resources */,
 				66B1012B1C9EC56D00AE814B /* Main.storyboard in Resources */,
 				24D635331D8122FC008803D6 /* AssetsPickerChecked@3x.png in Resources */,
-				243220211D2BA7EB007FE422 /* xiangqing_tianjiatupian@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,7 +656,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XD3776868Q;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CYPhotoKit/PrefixHeader.pch";
 				INFOPLIST_FILE = CYPhotoKit/Info.plist;
@@ -684,7 +674,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XD3776868Q;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CYPhotoKit/PrefixHeader.pch";
 				INFOPLIST_FILE = CYPhotoKit/Info.plist;

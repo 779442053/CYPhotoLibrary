@@ -32,9 +32,7 @@
 
 - (void)dismiss {
     
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllDismiss" object:nil];
-
 }
 
 - (void)dealloc {
@@ -46,7 +44,7 @@
 
 - (IBAction)settingButtonClick:(id)sender {
     
-    NSURL *url = [NSURL URLWithString:@"prefs:root=Privacy&path=PHOTOS"];
+    NSURL *url               = [NSURL URLWithString:@"prefs:root=Privacy&path=PHOTOS"];
     BOOL canOpenPhotoSetting = [[UIApplication sharedApplication] canOpenURL:url];
     if (canOpenPhotoSetting) {
         [[UIApplication sharedApplication] openURL:url];

@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^PhotosCompletion) (NSArray *_Nullable result);
+@class CYPhotosAsset;
+/**
+ *  选取完照片的后的回调
+ */
+typedef void(^PhotosCompletion)(NSArray <CYPhotosAsset*> *_Nullable result);
 
 @protocol CYPhotoNavigationControllerDelegate;
 /**
@@ -19,16 +23,16 @@ typedef void (^PhotosCompletion) (NSArray *_Nullable result);
 /**
  *  类方法获取一个 photosNavigationController
  */
-+ (_Nullable instancetype)showPhotosViewController;
++ (_Nonnull instancetype)showPhotosViewController;
 
 /**
  *  禁用 init 方法来生成该类的实例对象
  */
-- (_Nullable instancetype)init UNAVAILABLE_ATTRIBUTE;
+- (_Nonnull instancetype)init UNAVAILABLE_ATTRIBUTE;
 /**
  *  禁用 new 方法来生成该类的实例对象
  */
-+ (_Nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
++ (_Nonnull instancetype)new UNAVAILABLE_ATTRIBUTE;
 
 /** completionBlock  */
 @property (nonatomic,copy,nullable) PhotosCompletion completionBlock;
@@ -49,6 +53,6 @@ typedef void (^PhotosCompletion) (NSArray *_Nullable result);
 /**
  *  照片选择器完成选择照片
  */
-- (void)cyPhotoNavigationController:(CYPhotoNavigationController *_Nullable)controller didFinishedSelectPhotos:(NSArray *_Nullable)result;
+- (void)cyPhotoNavigationController:(CYPhotoNavigationController *_Nullable)controller didFinishedSelectPhotos:(NSArray <CYPhotosAsset*> *_Nullable)result;
 
 @end

@@ -27,15 +27,18 @@
     [self.collectionView registerClass:[CYCollectionViewCell class] forCellWithReuseIdentifier:@"CYCollectionViewCell"];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self loadDatas];
+    
 }
 - (void)loadDatas{
     
     CYPhoto *photo = [[CYPhoto alloc] init];
     photo.type     = CYPhotoAssetTypeAdd;
-    photo.image    = [UIImage imageNamed:@"xiangqing_tianjiatupian"];
+    photo.image    = [UIImage imageNamed:@"hubs_uploadImage"];
     [self.dataSource addObject:photo];
     [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
+    
 }
+
 - (NSMutableArray *)dataSource{
     if (!_dataSource) {
         _dataSource = [NSMutableArray array];
@@ -75,13 +78,13 @@
     
     CYPhotoNavigationController *cyNavigationController = [CYPhotoNavigationController showPhotosViewController];
     [self presentViewController:cyNavigationController animated:YES completion:nil];
-    cyNavigationController.maxPickerImageCount = 10;
+    cyNavigationController.maxPickerImageCount = 9;
     cyNavigationController.cyPhotosDelegate             = self;
     
-    cyNavigationController.completionBlock = ^(NSArray *result) {
-        
-        
-    };
+//    cyNavigationController.completionBlock = ^(NSArray *result) {
+//        
+//        
+//    };
 
 }
 

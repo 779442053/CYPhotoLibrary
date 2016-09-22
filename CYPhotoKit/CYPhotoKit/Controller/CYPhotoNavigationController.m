@@ -17,8 +17,7 @@
 
 @implementation CYPhotoNavigationController
 
-
-+ (_Nullable instancetype)showPhotosViewController
++ (_Nonnull instancetype)showPhotosViewController
 {
     CYPhotoGroupController *cyPhotoGroupViewController = [[CYPhotoGroupController alloc] init];
     
@@ -31,8 +30,11 @@
     
     [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
 
+}
+/**
+ *  选择完成后的通知方法 在这里处理回调
+ */
 - (void)didFinished:(NSNotification *)noti {
     
     NSArray *array = noti.object;
@@ -74,12 +76,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinished:) name:@"photosViewControllerDidFinished" object:nil];
     
 }
-
+/**
+ *  判断rootViewController 是否为 CYPhotoGroupController ,实例化方法 showPhotosViewController 不能使用其他 controlller 作为 CYPhotoNavigationController 的 rootViewController
+ */
 - (void)isEmpty {
     
     UIViewController *rootViewController = [self.viewControllers firstObject];
     BOOL result = (!rootViewController||![rootViewController isKindOfClass:[CYPhotoGroupController class]]);
-    NSAssert(!result, @"\n\n请指定 CYPhotoGroupController类型的 rootViewController 或者调用 shareInstance 方法\n");
+    NSAssert(!result, @"\n\n请指定 CYPhotoGroupController类型的 rootViewController 或者调用 showPhotosViewController 方法\n");
 }
 
 - (void)viewDidLoad{

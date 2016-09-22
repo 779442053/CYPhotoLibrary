@@ -33,6 +33,28 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
 
     [self setup];
     
+    UIWindow *window  = keyWindow;
+    
+    UIActivityIndicatorView *_activityView  = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _activityView.frame                     = CGRectMake(0.0f, 0.0f, 40.0f, 40.0f);
+    _activityView.hidesWhenStopped          = YES;
+    _activityView.tag                       = 1000;
+    _activityView.center                    = window.center;
+    [_activityView startAnimating];
+    
+    [window addSubview:_activityView];
+    
+}
+
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    UIActivityIndicatorView *_activityView = [[[UIApplication sharedApplication].delegate window] viewWithTag:1000];
+    if (_activityView != nil) {
+        [_activityView removeFromSuperview];
+    }
 }
 
 - (void)setup {
@@ -44,15 +66,15 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         __strong typeof(weakSelf)strongSelf = weakSelf;
         if (status == PHAuthorizationStatusDenied) {
-            NSLog(@"用户拒绝当前应用访问相册,我们需要提醒用户打开访问开关");
+            BKLog(@"用户拒绝当前应用访问相册,我们需要提醒用户打开访问开关");
             [strongSelf performSelectorOnMainThread:@selector(showAuthorizedFailureViewController) withObject:nil waitUntilDone:NO];
         }else if (status == PHAuthorizationStatusRestricted){
-            NSLog(@"家长控制,不允许访问");
+            BKLog(@"家长控制,不允许访问");
             [strongSelf performSelectorOnMainThread:@selector(showAuthorizedFailureViewController) withObject:nil waitUntilDone:NO];
         }else if (status == PHAuthorizationStatusNotDetermined){
-            NSLog(@"用户还没有做出选择");
+            BKLog(@"用户还没有做出选择");
         }else if (status == PHAuthorizationStatusAuthorized){
-            NSLog(@"用户允许当前应用访问相册");
+            BKLog(@"用户允许当前应用访问相册");
             [strongSelf performSelectorOnMainThread:@selector(photosAuthorizedSuccess) withObject:nil waitUntilDone:NO];
         }
         
@@ -75,7 +97,6 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     
     [self.view addSubview:self.tableView];
     
-
     [self addObserVer]; // 添加监听
     
     __weak typeof(self)weakSelf             = self;
@@ -84,11 +105,12 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
         __strong typeof(weakSelf)strongSelf = weakSelf;
         CYPhotosManager *photosManager      = [CYPhotosManager defaultManager];
         strongSelf.sectionFetchResults      = @[[photosManager requestAllPhotosOptions], [photosManager requestSmartAlbums], [photosManager requestTopLevelUserCollections]];
-        
+
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             // 如果所有照片有照片 就进所有照片的详情页面
-            if ([[photosManager requestAllPhotosOptions] count]>0) {
-                CYPhotosCollection *photoCollection = [[photosManager requestAllPhotosOptions] firstObject];
+            NSArray *array = strongSelf.sectionFetchResults.firstObject;
+            if ([array count] > 0) {
+                CYPhotosCollection *photoCollection = [array firstObject];
                 [strongSelf openPhotosListViewController:photoCollection animated:NO];
             }
             [strongSelf.tableView reloadData];

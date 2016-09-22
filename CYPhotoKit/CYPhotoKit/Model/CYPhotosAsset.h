@@ -26,6 +26,6 @@
 @property (nonatomic,copy,nullable  ) NSURL   *imageUrl;
 
 /** 选取后的图片/视频的二进制文件  */
-@property (nonatomic,strong,nullable) NSData  *imageData;
+@property (nonatomic,strong,nullable) NSData *imageData;
 
 @end

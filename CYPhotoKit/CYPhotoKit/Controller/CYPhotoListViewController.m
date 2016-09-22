@@ -23,16 +23,19 @@ static CGFloat const itemMarigin = 5.0f;
 @property (nonatomic,strong ) UIView                *bottomView;
 @property (nonatomic,assign ) BOOL                  needScrollToBottom;
 @property (nonatomic,assign) NSInteger  maxCount;
+
 @end
 
 @implementation CYPhotoListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self setup];
     
 }
+
+
 
 - (void)setup {
     
@@ -40,46 +43,54 @@ static CGFloat const itemMarigin = 5.0f;
     CGFloat itemW                            = (screenW - 3*itemMarigin)/4;
     CGFloat itemH                            = itemW;
     self.itemSize                            = CGSizeMake(itemW, itemH);
-
+    
     [self.collectionView registerNib:[UINib nibWithNibName:@"CYPhotosCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CYPhotosCollectionViewCell"];
     self.collectionView.alwaysBounceVertical = YES;
-
+    
     self.navigationItem.rightBarButtonItem   = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-
-
+    
+    
     self.countLabel.layer.cornerRadius       = 10.0f;
     self.countLabel.layer.masksToBounds      = YES;
     self.needScrollToBottom                  = YES;
-
     self.collectionView.dataSource           = self;
     self.collectionView.delegate             = self;
-
+    
+    // 设置最大选取照片的数量
     CYPhotoNavigationController *nav         = (CYPhotoNavigationController *)self.navigationController;
     self.maxCount                            = nav.maxPickerImageCount;
     self.maxImageLabel.text                  = [NSString stringWithFormat:@"最多可选取%@张相片",@(self.maxCount)];
-
+    
     [self reloadBottomViewStatus];
-
+    
 }
 #pragma mark - 按钮点击事件
 
 - (void)dismiss {
-
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllDismiss" object:nil];
     
 }
+/**
+ *  查看所选照片的按钮
+ */
 - (IBAction)previewButtonClick:(id)sender {
     
     
 }
+/**
+ *  完成按钮选取图片结束
+ */
 - (IBAction)finishedButtonClick:(id)sender {
-
+    
     __block   NSMutableArray *array = [NSMutableArray array];
-
+    
     [self.selectAssetDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, CYPhotosAsset *photosAsset, BOOL * _Nonnull stop) {
         [array addObject:photosAsset];
     }];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"photosViewControllerDidFinished" object:array];
+    
 }
 
 
@@ -116,16 +127,24 @@ static CGFloat const itemMarigin = 5.0f;
     [super viewWillAppear:animated];
     
     
- 
     [self.collectionView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    UIActivityIndicatorView *_activityView = [[[UIApplication sharedApplication].delegate window] viewWithTag:1000];
+    if (_activityView != nil) {
+        [_activityView removeFromSuperview];
+    }
 
 }
 
 - (void)setFetchResult:(PHFetchResult<PHAsset *> *)fetchResult {
     _fetchResult    = fetchResult;
-
+    
     __weak typeof(self)weakSelf = self;
-  
+    
     void (^block) () = ^ {
         __strong typeof(weakSelf)strongSelf = weakSelf;
         for (int i=0; i<_fetchResult.count; i++) {
@@ -133,7 +152,7 @@ static CGFloat const itemMarigin = 5.0f;
             [strongSelf.cacheSelectItems setObject:@"0" forKey:key];
         }
     };
-
+    
     dispatch_global_safe(block);
     
 }
@@ -156,7 +175,7 @@ static CGFloat const itemMarigin = 5.0f;
     off.y                   = self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom;
     [self.collectionView setContentOffset:off animated:NO];
     self.needScrollToBottom = NO;
-
+    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -167,11 +186,11 @@ static CGFloat const itemMarigin = 5.0f;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-
-   CYPhotosCollectionViewCell *photosCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYPhotosCollectionViewCell" forIndexPath:indexPath];
-
-   [self setupCollectionViewCell:photosCell atIndexPath:indexPath];
-
+    
+    CYPhotosCollectionViewCell *photosCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CYPhotosCollectionViewCell" forIndexPath:indexPath];
+    
+    [self setupCollectionViewCell:photosCell atIndexPath:indexPath];
+    
     return photosCell;
 }
 
@@ -193,11 +212,11 @@ static CGFloat const itemMarigin = 5.0f;
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     PHAsset *asset             = [self.fetchResult objectAtIndex:indexPath.item];
     CYPhotosAsset *photosAsset = [CYPhotosAsset new];
     photosAsset.asset          = asset;
-
+    
     NSString *key              = [NSString stringWithFormat:@"%@",@(indexPath.item)];
     BOOL isSelect              = ![self.cacheSelectItems[key] boolValue];
     NSString *flag             = nil;
@@ -217,23 +236,23 @@ static CGFloat const itemMarigin = 5.0f;
     }
     
     self.cacheSelectItems[key]             = flag;
-
+    
     CYPhotosCollectionViewCell *photosCell = (CYPhotosCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
     
     [self setupCollectionViewCell:photosCell atIndexPath:indexPath];
-
+    
 }
 
 - (void)setupCollectionViewCell:(CYPhotosCollectionViewCell*)cell atIndexPath:(NSIndexPath *)indexPath {
     
     PHAsset *asset    = [self.fetchResult objectAtIndex:indexPath.item];
     NSString *key     = [NSString stringWithFormat:@"%@",@(indexPath.item)];
-
+    
     BOOL select       = [self.cacheSelectItems[key] boolValue];
     cell.selectItem   = select;
     cell.imageManager = self.imageManager;
     cell.photosAsset  = asset;
-
+    
 }
 
 - (void)showAlertView {
@@ -247,16 +266,18 @@ static CGFloat const itemMarigin = 5.0f;
     [self presentViewController:alertViewControler animated:YES completion:nil];
     
 }
-
+/**
+ *  刷新底部工具条状态
+ */
 - (void)reloadBottomViewStatus {
     
     NSInteger selectItemCount   = self.selectAssetDictionary.count;
     self.previewButton.enabled  = selectItemCount>0;
     self.finishedButton.enabled = self.previewButton.enabled;
-
+    
     self.finishedButton.alpha   = selectItemCount == 0 ? 0.5f : 1.0f;
     self.previewButton.alpha    = self.finishedButton.alpha;
-
+    
     self.countLabel.hidden      = (selectItemCount == 0);
     
     if (!self.countLabel.hidden ) {
@@ -268,12 +289,12 @@ static CGFloat const itemMarigin = 5.0f;
         }];
     }
     
- 
+    
 }
 
 - (void)dealloc {
     
-//    CYLog(@"--dealloc--\n");
+    //    CYLog(@"--dealloc--\n");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }

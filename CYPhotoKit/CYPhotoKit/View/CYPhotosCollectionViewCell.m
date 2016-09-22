@@ -17,7 +17,6 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    [super awakeFromNib];
     
     self.imageView.contentMode   = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
@@ -58,6 +57,7 @@
      这个属性只有在 synchronous 为 true 时有效。
      
      */
+    
     
     PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
     option.synchronous  = NO;
