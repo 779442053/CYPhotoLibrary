@@ -27,5 +27,9 @@
 
 /** 选取后的图片/视频的二进制文件  */
 @property (nonatomic,strong,nullable) NSData *imageData;
+/**
+ *  是否选中图片
+ */
+@property (nonatomic,assign,getter =isSelectImage) BOOL selectImage;
 
 @end

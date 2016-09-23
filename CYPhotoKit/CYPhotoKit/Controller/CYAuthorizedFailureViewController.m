@@ -37,7 +37,6 @@
 
 - (void)dealloc {
     
-//    CYLog(@"--dealloc--\n");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
