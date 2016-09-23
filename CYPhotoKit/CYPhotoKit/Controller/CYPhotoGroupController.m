@@ -34,14 +34,12 @@ static NSString *const smartAlbumsIdentifier = @"smartAlbumsIdentifier";
     [self setup];
     
     UIWindow *window  = keyWindow;
-    
     UIActivityIndicatorView *_activityView  = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityView.frame                     = CGRectMake(0.0f, 0.0f, 40.0f, 40.0f);
     _activityView.hidesWhenStopped          = YES;
     _activityView.tag                       = 1000;
     _activityView.center                    = window.center;
     [_activityView startAnimating];
-    
     [window addSubview:_activityView];
     
 }
